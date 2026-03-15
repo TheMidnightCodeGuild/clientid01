@@ -1,4 +1,3 @@
-import nextConnect from "next-connect";
 import multer from "multer";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -16,19 +15,24 @@ export const config = {
   },
 };
 
-const apiRoute = nextConnect({
-  onError(error, req, res) {
-    res.status(501).json({ error: `Sorry something Happened! ${error.message}` });
-  },
-  onNoMatch(req, res) {
-    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
-  },
-});
+const runMiddleware = (req, res, fn) =>
+  new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) return reject(result);
+      return resolve(result);
+    });
+  });
 
-apiRoute.use(upload.single('image'));
+export default async function handler(req, res) {
+  if (req.method !== "PUT") {
+    return res
+      .status(405)
+      .json({ error: `Method '${req.method}' Not Allowed` });
+  }
 
-apiRoute.put(async (req, res) => {
   try {
+    await runMiddleware(req, res, upload.single("image"));
+
     const { blogId, title, subtitle, content } = req.body;
 
     if (!blogId) {
@@ -94,6 +98,4 @@ apiRoute.put(async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message || "Failed to update blog." });
   }
-});
-
-export default apiRoute;
+}

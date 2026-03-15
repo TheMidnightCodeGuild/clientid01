@@ -1,18 +1,14 @@
-import nextConnect from "next-connect";
 import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import { db, storage } from "@/lib/firebase";
 
-const apiRoute = nextConnect({
-  onError(error, req, res) {
-    res.status(501).json({ error: `Sorry something Happened! ${error.message}` });
-  },
-  onNoMatch(req, res) {
-    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
-  },
-});
+export default async function handler(req, res) {
+  if (req.method !== "DELETE") {
+    return res
+      .status(405)
+      .json({ error: `Method '${req.method}' Not Allowed` });
+  }
 
-apiRoute.delete(async (req, res) => {
   try {
     const { blogId } = req.body;
 
@@ -55,6 +51,4 @@ apiRoute.delete(async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message || "Failed to delete blog." });
   }
-});
-
-export default apiRoute;
+}
