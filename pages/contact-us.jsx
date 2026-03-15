@@ -11,13 +11,51 @@ export default function Contactus() {
     setCaptchaValue(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!captchaValue) {
       alert("Please verify that you are not a robot");
       return;
     }
-    // Handle form submission
+
+    const formData = new FormData(e.target);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const phone = formData.get("phone");
+    const message = formData.get("message");
+
+    try {
+      const res = await fetch("/api/forms/saveEntry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+
+      const text = await res.text();
+      if (text.trimStart().startsWith("<")) {
+        throw new Error(
+          "Server returned an error page. Please try again later."
+        );
+      }
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error("Invalid response from server.");
+      }
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit form.");
+      }
+
+      alert("Thank you! Your message has been sent.");
+      e.target.reset();
+      setCaptchaValue(null);
+    } catch (err) {
+      alert(err.message || "Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -146,23 +184,27 @@ export default function Contactus() {
               <form onSubmit={handleSubmit}>
                 <input
                   type="text"
+                  name="name"
                   className="w-full h-12 text-gray-600 placeholder-gray-400  shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none pl-4 mb-10"
                   placeholder="Name"
                   required
                 />
                 <input
                   type="email"
+                  name="email"
                   className="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none pl-4 mb-10"
                   placeholder="Email"
                   required
                 />
                 <input
                   type="tel"
+                  name="phone"
                   className="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none pl-4 mb-10"
                   placeholder="Phone"
                   required
                 />
                 <textarea
+                  name="message"
                   className="w-full h-32 text-gray-600 placeholder-gray-400 bg-transparent text-lg shadow-sm font-normal leading-7 rounded-3xl border border-gray-200 focus:outline-none p-4 mb-10"
                   placeholder="Message"
                   required

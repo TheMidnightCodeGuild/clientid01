@@ -22,6 +22,12 @@ try {
   ViewAllImages = require("./viewAllImages").default;
 } catch {}
 
+// Import viewAllEntries.jsx
+let ViewAllEntries = null;
+try {
+  ViewAllEntries = require("./viewAllEntries.jsx").default;
+} catch {}
+
 const COMPONENTS = [
   {
     key: "uploadBlogs",
@@ -42,6 +48,11 @@ const COMPONENTS = [
     key: "viewAllImages",
     label: "View All Images",
     component: ViewAllImages ? <ViewAllImages /> : <div>viewAllImages.jsx not found.</div>
+  },
+  {
+    key: "viewAllEntries",
+    label: "View All Entries",
+    component: ViewAllEntries ? <ViewAllEntries /> : <div>viewAllEntries.jsx not found.</div>
   }
 ];
 
