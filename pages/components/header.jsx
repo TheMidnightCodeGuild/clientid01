@@ -143,7 +143,7 @@ const Navbar = () => {
                 priority
               />
               <span className="text-theme1 text-lg font-lexend font-bold leading-tight uppercase tracking-[0.1rem]">
-                Sankalpshree <br /> wealth
+                Sankalapshree <br /> wealth
               </span>
             </Link>
 
