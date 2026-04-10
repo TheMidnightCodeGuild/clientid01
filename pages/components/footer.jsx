@@ -15,7 +15,7 @@ const Footer = () => {
               <Image
                 className="w-36 h-auto"
                 src="/images/logo.jpeg"
-                alt="sankalpshree-logo"
+                alt="sankalpashree-wealth-logo"
                 width={100}
                 height={65}
               />
@@ -44,9 +44,12 @@ const Footer = () => {
             {t("footerMutualFunds")}
           </div>
           <nav className="flex flex-col gap-2 lg:gap-3">
-            <div><Link href="/services" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("childFuturePlanning")}</Link></div>
-            <div><Link href="/services" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerRetirementPlanning")}</Link></div>
-            <div><Link href="/services/" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerPMS")}</Link></div>
+            <div><Link href="/services#mutual-funds" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("mutualFunds")}</Link></div>
+            <div><Link href="/services#retirement-planning" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerRetirementPlanning")}</Link></div>
+            <div><Link href="/services#sip" className="text-sm lg:text-base text-gray-50 hover:text-white">SIP</Link></div>
+            <div><Link href="/services#swp" className="text-sm lg:text-base text-gray-50 hover:text-white">SWP</Link></div>
+            <div><Link href="/services#stp" className="text-sm lg:text-base text-gray-50 hover:text-white">STP</Link></div>
+            <div><Link href="/services#client-portfolio-review" className="text-sm lg:text-base text-gray-50 hover:text-white">Client Portfolio Review</Link></div>
           </nav>
         </div>
 
@@ -56,10 +59,13 @@ const Footer = () => {
             {t("footerInsurance")}
           </div>
           <nav className="flex flex-col gap-2 lg:gap-3">
-            <div><Link href="/services" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerLifeInsurance")}</Link></div>
-            <div><Link href="/services" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerGeneralInsurance")}</Link></div>
-            <div><Link href="/services" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerAccidentInsurance")}</Link></div>
-            <div><Link href="/services/" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerHealthInsurance")}</Link></div>
+            <div><Link href="/services#life-insurance" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerLifeInsurance")}</Link></div>
+            <div><Link href="/services#general-insurance" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerGeneralInsurance")}</Link></div>
+            <div><Link href="/services#health-insurance" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerHealthInsurance")}</Link></div>
+            <div><Link href="/services#personal-accident-insurance" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("footerAccidentInsurance")}</Link></div>
+            <div><Link href="/services#term-insurance" className="text-sm lg:text-base text-gray-50 hover:text-white">TERM Insurance</Link></div>
+            <div><Link href="/services#traditional-insurance" className="text-sm lg:text-base text-gray-50 hover:text-white">TRADITIONAL Insurance</Link></div>
+            <div><Link href="/services#mediclaim" className="text-sm lg:text-base text-gray-50 hover:text-white">MEDICLAIM</Link></div>
           </nav>
         </div>
 

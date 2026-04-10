@@ -56,48 +56,31 @@ function LanguagePicker() {
           viewBox="0 0 16 16"
           fill="none"
         >
-          <path
-            d="M2 5L8 11L14 5"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
+          <path d="M2 5L8 11L14 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
       </button>
 
       {/* Dropdown */}
       <div
         className={`absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 z-[200] ${
-          open
-            ? "opacity-100 visible translate-y-0"
-            : "opacity-0 invisible -translate-y-2"
+          open ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
         }`}
       >
-        {/* Header label */}
         <div className="px-3 py-2 text-[10px] font-semibold uppercase tracking-widest text-gray-400 border-b border-gray-100">
           {t("language")}
         </div>
         {options.map((opt) => (
           <button
             key={opt.code}
-            onClick={() => {
-              setLang(opt.code);
-              setOpen(false);
-            }}
+            onClick={() => { setLang(opt.code); setOpen(false); }}
             className={`flex items-center gap-2 w-full px-3 py-2.5 text-sm font-medium transition-colors duration-150 ${
-              lang === opt.code
-                ? "bg-blue-50 text-blue-700"
-                : "text-gray-700 hover:bg-gray-50"
+              lang === opt.code ? "bg-blue-50 text-blue-700" : "text-gray-700 hover:bg-gray-50"
             }`}
           >
             <span className="text-base">{opt.flag}</span>
             {opt.label}
             {lang === opt.code && (
-              <svg
-                className="ml-auto w-4 h-4 text-blue-600"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
+              <svg className="ml-auto w-4 h-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fillRule="evenodd"
                   d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -112,6 +95,15 @@ function LanguagePicker() {
   );
 }
 
+// ─── Reusable dot bullet ───────────────────────────────────────────────────────
+const Dot = ({ size = "sm" }) => (
+  <span
+    className={`rounded-full bg-theme1 shrink-0 ${
+      size === "sm" ? "w-1 h-1" : "w-1.5 h-1.5"
+    }`}
+  />
+);
+
 // ─── Main Navbar ───────────────────────────────────────────────────────────────
 const Navbar = () => {
   const { t } = useLanguage();
@@ -124,20 +116,38 @@ const Navbar = () => {
     setMobileServicesOpen(false);
   };
 
+  // ── shared sub-item data ───────────────────────────────────────────────────
+  const mutualFundItems = [
+    { href: "/services#retirement-planning", label: t("retirementPlanning") },
+    { href: "/services#sip",                 label: "SIP" },
+    { href: "/services#swp",                 label: "SWP" },
+    { href: "/services#stp",                 label: "STP" },
+    { href: "/services#client-portfolio-review", label: "CLIENT PORTFOLIO REVIEW" },
+  ];
+
+  const insuranceItems = [
+    { href: "/services#health-insurance",            label: t("healthInsurance") },
+    { href: "/services#personal-accident-insurance", label: t("personalAccidentInsurance") },
+    { href: "/services#term-insurance",              label: "TERM Insurance" },
+    { href: "/services#traditional-insurance",       label: "TRADITIONAL Insurance" },
+    { href: "/services#mediclaim",                   label: "MEDICLAIM" },
+  ];
+
   return (
     <>
-      {/* ═══════════════════════════════════════════
-          DESKTOP NAVBAR  —  visible on md and above
-      ═══════════════════════════════════════════ */}
+      {/* ═══════════════════════════════════════════════════
+          DESKTOP NAVBAR  —  md and above
+      ═══════════════════════════════════════════════════ */}
       <nav className="hidden md:flex bg-white shadow-lg font-dm fixed top-0 w-full z-50">
         <div className="lg:max-w-[1300px] w-full mx-auto px-4">
           <div className="flex justify-between items-center">
+
             {/* Logo */}
             <Link href="/" className="flex items-center gap-4">
               <Image
                 className="w-auto h-20"
                 src="/images/logo.jpeg"
-                alt="Sankalpshree-wealth logo"
+                alt="Sankalpashree Wealth logo"
                 width={60}
                 height={60}
                 priority
@@ -149,26 +159,18 @@ const Navbar = () => {
 
             {/* Nav Links */}
             <div className="flex items-center gap-6 text-black font-dm text-base font-medium">
-              <Link href="/" className="relative py-1 transition-colors group">
-                {t("home")}
-                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-              </Link>
 
-              <Link
-                href="/about-us"
-                className="relative py-1 transition-colors group"
-              >
-                {t("aboutUs")}
-                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-              </Link>
-
-              <Link
-                href="/gallery"
-                className="relative py-1 transition-colors group"
-              >
-                {t("gallery")}
-                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-              </Link>
+              {/* Simple links */}
+              {[
+                { href: "/",         label: t("home") },
+                { href: "/about-us", label: t("aboutUs") },
+                { href: "/gallery",  label: t("gallery") },
+              ].map(({ href, label }) => (
+                <Link key={href} href={href} className="relative py-1 transition-colors group">
+                  {label}
+                  <span className="absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+                </Link>
+              ))}
 
               {/* Services Dropdown */}
               <div className="relative inline-flex text-gray-800">
@@ -184,17 +186,13 @@ const Navbar = () => {
                     viewBox="0 0 16 16"
                     fill="none"
                   >
-                    <path
-                      d="M2 5L8 11L14 5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
+                    <path d="M2 5L8 11L14 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                   </svg>
                 </button>
 
+                {/* Mega-dropdown panel */}
                 <div
-                  className={`absolute top-full left-1/2 -translate-x-1/2 mt-3 transition-all duration-200 w-[420px] bg-white shadow-xl rounded-2xl p-6 ${
+                  className={`absolute top-full left-1/2 -translate-x-1/2 mt-3 transition-all duration-200 w-[460px] bg-white shadow-xl rounded-2xl p-6 ${
                     desktopServicesOpen
                       ? "opacity-100 visible translate-y-0"
                       : "opacity-0 invisible -translate-y-2"
@@ -203,11 +201,10 @@ const Navbar = () => {
                   onMouseLeave={() => setDesktopServicesOpen(false)}
                 >
                   <div className="grid grid-cols-2 gap-6">
-                    {/* wealth column */}
+
+                    {/* ── Wealth column ── */}
                     <div>
-                      <p className="text-base font-semibold text-theme1 mb-2">
-                        {t("wealth")}
-                      </p>
+                      <p className="text-lg font-semibold text-black mb-2">{t("Wealth")}</p>
                       <div className="space-y-1">
                         <Link
                           href="/services#mutual-funds"
@@ -216,42 +213,21 @@ const Navbar = () => {
                           {t("mutualFunds")}
                         </Link>
                         <ul className="pl-3 space-y-0.5 border-l-2 border-blue-100">
-                          <li className="flex items-center gap-1">
-                            <span className="w-1 h-1 rounded-full bg-theme1 shrink-0" />
-                            <Link
-                              href="/services#children-planning"
-                              className="text-gray-500 hover:text-theme1 text-sm"
-                            >
-                              {t("childrenPlanning")}
-                            </Link>
-                          </li>
-                          <li className="flex items-center gap-1">
-                            <span className="w-1 h-1 rounded-full bg-theme1 shrink-0" />
-                            <Link
-                              href="/services#retirement-planning"
-                              className="text-gray-500 hover:text-theme1 text-sm"
-                            >
-                              {t("retirementPlanning")}
-                            </Link>
-                          </li>
-                          <li className="flex items-center gap-1">
-                            <span className="w-1 h-1 rounded-full bg-theme1 shrink-0" />
-                            <Link
-                              href="/services#pms"
-                              className="text-gray-500 hover:text-theme1 text-sm"
-                            >
-                              {t("portfolioManagement")}
-                            </Link>
-                          </li>
+                          {mutualFundItems.map(({ href, label }) => (
+                            <li key={href} className="flex items-center gap-1">
+                              <Dot size="sm" />
+                              <Link href={href} className="text-gray-500 hover:text-theme1 text-sm">
+                                {label}
+                              </Link>
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     </div>
 
-                    {/* Insurance column */}
+                    {/* ── Insurance column ── */}
                     <div>
-                      <p className="text-base font-semibold text-theme1 mb-2">
-                        {t("insurance")}
-                      </p>
+                      <p className="text-lg font-semibold text-black mb-2">{t("insurance")}</p>
                       <div className="space-y-1">
                         <Link
                           href="/services#life-insurance"
@@ -266,40 +242,27 @@ const Navbar = () => {
                           {t("generalInsurance")}
                         </Link>
                         <ul className="pl-3 space-y-0.5 border-l-2 border-blue-100">
-                          <li className="flex items-center gap-1">
-                            <span className="w-1 h-1 rounded-full bg-theme1 shrink-0" />
-                            <Link
-                              href="/services#health-insurance"
-                              className="text-gray-500 hover:text-theme1 text-sm"
-                            >
-                              {t("healthInsurance")}
-                            </Link>
-                          </li>
-                          <li className="flex items-center gap-1">
-                            <span className="w-1 h-1 rounded-full bg-theme1 shrink-0" />
-                            <Link
-                              href="/services#personal-accident-insurance"
-                              className="text-gray-500 hover:text-theme1 text-sm"
-                            >
-                              {t("personalAccidentInsurance")}
-                            </Link>
-                          </li>
+                          {insuranceItems.map(({ href, label }) => (
+                            <li key={href} className="flex items-center gap-1">
+                              <Dot size="sm" />
+                              <Link href={href} className="text-gray-500 hover:text-theme1 text-sm">
+                                {label}
+                              </Link>
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
 
-              <Link
-                href="/blogs"
-                className="relative py-1 transition-colors group"
-              >
+              <Link href="/blogs" className="relative py-1 transition-colors group">
                 {t("blogs")}
                 <span className="absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
               </Link>
 
-              {/* Language Picker */}
               <LanguagePicker />
 
               {/* Contact Button */}
@@ -328,79 +291,66 @@ const Navbar = () => {
                   </svg>
                 </span>
               </Link>
+
             </div>
           </div>
         </div>
       </nav>
 
-      {/* ═══════════════════════════════════════════
-          MOBILE TOPBAR  —  visible below md
-      ═══════════════════════════════════════════ */}
+      {/* ═══════════════════════════════════════════════════
+          MOBILE TOPBAR  —  below md
+      ═══════════════════════════════════════════════════ */}
       <nav className="flex md:hidden bg-white shadow-lg font-dm fixed top-0 w-full z-50">
         <div className="w-full px-4">
           <div className="flex justify-between items-center">
+
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <Image
                 className="w-auto h-16"
-                src="/images/logo.png"
-                alt="Sankalpshree-wealth logo"
+                src="/images/logo.jpeg"
+                alt="Sankalpashree Wealth logo"
                 width={60}
                 height={60}
                 priority
               />
               <span className="text-theme1 text-sm font-lexend font-bold leading-tight tracking-[0.05rem]">
-                Shagun Shri <br /> wealth
+                Sankalpashree <br /> Wealth
               </span>
             </Link>
 
             <div className="flex items-center gap-2">
-              {/* Language Picker — mobile */}
               <LanguagePicker />
-
-              {/* Hamburger Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 rounded-lg hover:bg-gray-100"
                 aria-label="Open menu"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {mobileMenuOpen ? (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   ) : (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   )}
                 </svg>
               </button>
             </div>
+
           </div>
         </div>
       </nav>
 
-      {/* ═══════════════════════════════════════════
+      {/* ═══════════════════════════════════════════════════
           MOBILE DRAWER  —  slide-in panel
-      ═══════════════════════════════════════════ */}
+      ═══════════════════════════════════════════════════ */}
       <div
         className={`fixed md:hidden inset-0 z-50 ${mobileMenuOpen ? "" : "pointer-events-none"}`}
       >
         {/* Backdrop */}
         <div
-          className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${mobileMenuOpen ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
+            mobileMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
           onClick={closeMobileMenu}
         />
 
@@ -412,21 +362,17 @@ const Navbar = () => {
         >
           {/* Drawer Header */}
           <div className="flex justify-between items-center p-4 border-b border-gray-200">
-            <Link
-              href="/"
-              className="flex items-center gap-3"
-              onClick={closeMobileMenu}
-            >
+            <Link href="/" className="flex items-center gap-3" onClick={closeMobileMenu}>
               <Image
                 className="w-12 h-auto"
-                src="/images/logo.png"
-                alt="Sankalpshree-wealth logo"
+                src="/images/logo.jpeg"
+                alt="Sankalpashree Wealth logo"
                 width={60}
                 height={60}
                 priority
               />
               <span className="text-theme1 text-sm font-lexend font-bold leading-tight tracking-[0.05rem]">
-                Shagun Shri <br /> wealth
+                Sankalpashree <br /> Wealth
               </span>
             </Link>
             <button
@@ -434,18 +380,8 @@ const Navbar = () => {
               className="p-2 rounded-lg hover:bg-gray-100"
               aria-label="Close menu"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -453,29 +389,22 @@ const Navbar = () => {
           {/* Drawer Links */}
           <div className="p-4 overflow-y-auto h-[calc(100vh-80px)]">
             <div className="space-y-2">
-              <Link
-                href="/"
-                onClick={closeMobileMenu}
-                className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors"
-              >
-                {t("home")}
-              </Link>
 
-              <Link
-                href="/about-us"
-                onClick={closeMobileMenu}
-                className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors"
-              >
-                {t("aboutUs")}
-              </Link>
-
-              <Link
-                href="/gallery"
-                onClick={closeMobileMenu}
-                className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors"
-              >
-                {t("gallery")}
-              </Link>
+              {/* Simple links */}
+              {[
+                { href: "/",         label: t("home") },
+                { href: "/about-us", label: t("aboutUs") },
+                { href: "/gallery",  label: t("gallery") },
+              ].map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={closeMobileMenu}
+                  className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors"
+                >
+                  {label}
+                </Link>
+              ))}
 
               {/* Services Accordion */}
               <div>
@@ -498,86 +427,67 @@ const Navbar = () => {
                   </svg>
                 </button>
 
-                <div
-                  className={`mt-2 space-y-1 pl-6 ${mobileServicesOpen ? "block" : "hidden"}`}
-                >
+                <div className={`mt-2 space-y-2 pl-4 ${mobileServicesOpen ? "block" : "hidden"}`}>
+
+                  {/* ── Mutual Funds ── */}
+                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    {t("Wealth")}
+                  </p>
                   <Link
                     href="/services#mutual-funds"
                     onClick={closeMobileMenu}
-                    className="block py-2 text-gray-700 font-medium hover:text-blue-600 text-sm"
+                    className="block py-1.5 px-2 text-gray-700 font-medium hover:text-blue-600 text-sm"
                   >
                     {t("mutualFunds")}
                   </Link>
                   <ul className="pl-3 mb-1 space-y-1 border-l-2 border-blue-100">
-                    <li className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-theme1 shrink-0" />
-                      <Link
-                        href="/services#children-planning"
-                        onClick={closeMobileMenu}
-                        className="text-xs text-gray-500 hover:text-blue-600"
-                      >
-                        {t("childrenPlanning")}
-                      </Link>
-                    </li>
-                    <li className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-theme1 shrink-0" />
-                      <Link
-                        href="/services#retirement-planning"
-                        onClick={closeMobileMenu}
-                        className="text-sm text-gray-500 hover:text-blue-600"
-                      >
-                        {t("retirementPlanning")}
-                      </Link>
-                    </li>
-                    <li className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-theme1 shrink-0" />
-                      <Link
-                        href="/services#pms"
-                        onClick={closeMobileMenu}
-                        className="text-sm text-gray-500 hover:text-blue-600"
-                      >
-                        {t("portfolioManagement")}
-                      </Link>
-                    </li>
+                    {mutualFundItems.map(({ href, label }) => (
+                      <li key={href} className="flex items-center gap-1.5">
+                        <Dot size="lg" />
+                        <Link
+                          href={href}
+                          onClick={closeMobileMenu}
+                          className="text-sm text-gray-500 hover:text-blue-600"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
 
+                  {/* ── Insurance ── */}
+                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                    {t("insurance")}
+                  </p>
                   <Link
                     href="/services#life-insurance"
                     onClick={closeMobileMenu}
-                    className="block py-2 text-gray-600 hover:text-blue-600 text-sm"
+                    className="block py-1.5 px-2 text-gray-700 hover:text-blue-600 text-sm"
                   >
                     {t("lifeInsurance")}
                   </Link>
-
                   <Link
                     href="/services#general-insurance"
                     onClick={closeMobileMenu}
-                    className="block py-2 text-gray-700 font-medium hover:text-blue-600 text-sm"
+                    className="block py-1.5 px-2 text-gray-700 font-medium hover:text-blue-600 text-sm"
                   >
                     {t("generalInsurance")}
                   </Link>
                   <ul className="pl-3 space-y-1 border-l-2 border-blue-100">
-                    <li className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-theme1 shrink-0" />
-                      <Link
-                        href="/services#personal-accident-insurance"
-                        onClick={closeMobileMenu}
-                        className="text-sm text-gray-500 hover:text-blue-600"
-                      >
-                        {t("personalAccidentInsurance")}
-                      </Link>
-                    </li>
-                    <li className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-theme1 shrink-0" />
-                      <Link
-                        href="/services#health-insurance"
-                        onClick={closeMobileMenu}
-                        className="text-sm text-gray-500 hover:text-blue-600"
-                      >
-                        {t("healthInsurance")}
-                      </Link>
-                    </li>
+                    {insuranceItems.map(({ href, label }) => (
+                      <li key={href} className="flex items-center gap-1.5">
+                        <Dot size="lg" />
+                        <Link
+                          href={href}
+                          onClick={closeMobileMenu}
+                          className="text-sm text-gray-500 hover:text-blue-600"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
+
                 </div>
               </div>
 
@@ -598,6 +508,7 @@ const Navbar = () => {
                   {t("contactNow")}
                 </Link>
               </div>
+
             </div>
           </div>
         </div>

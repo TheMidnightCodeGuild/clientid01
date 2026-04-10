@@ -18,11 +18,11 @@ const About = () => {
         </title>
         <meta
           name="description"
-          content="Learn about Mr. Seetaram Sharma — LIC agent since 2008, Member Zonal Manager's Club for Agents, and founder of Sankalpshree Invest, Ujjain. Specializing in mutual funds, LIC life insurance, Mediclaim, child future planning, retirement planning, PMS, and tax planning for individuals and families."
+          content="Learn about Mr. Seetaram Sharma — LIC agent since 2008, Member Zonal Manager's Club for Agents, and founder of Sankalpshree Invest, Ujjain. Specializing in mutual funds, LIC life insurance, Mediclaim, child future planning, retirement planning, PMS, and  for individuals and families."
         />
         <meta
           name="keywords"
-          content="Seetaram Sharma Ujjain, LIC agent Ujjain since 2008, Sankalpshree Invest founder, financial advisor Ujjain, LIC Zonal Manager's Club member, mutual funds Ujjain, life insurance Ujjain, wealth management Ujjain, best financial consultant Ujjain"
+          content="Seetaram Sharma Ujjain, LIC agent Ujjain since 2008, Sankalpshree Invest founder, financial advisor Ujjain, LIC Zonal Manager's Club member, mutual funds Ujjain, life insurance Ujjain, wealth management Ujjain, best Mutual Fund Advisor Ujjain"
         />
       </Head>
       <main className="font-dm">
@@ -238,11 +238,11 @@ const About = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-theme1/10 border pt-16 border-gray-200 rounded-2xl p-6 shadow-sm">
-                <p className="text-4xl font-bold text-theme1">13+</p>
+                <p className="text-4xl font-bold text-theme1">18+</p>
                 <p className="text-gray-600 text-sm">{t("yearsConsulting")}</p>
               </div>
               <div className="bg-gray-100 border pt-16 border-gray-200 rounded-2xl p-6 shadow-sm">
-                <p className="text-4xl font-bold text-gray-900">800+</p>
+                <p className="text-4xl font-bold text-gray-900">1400+</p>
                 <p className="text-gray-600 text-sm">{t("happyClients")}</p>
               </div>
               <div

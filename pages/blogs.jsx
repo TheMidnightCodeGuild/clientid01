@@ -74,8 +74,8 @@ const Blogs = () => {
     <main>
       <Head>
         <title>
-          Blogs | Sankalpshree Invest – Financial Planning, LIC & Wealth Insights
-          by Seetaram Sharma, Ujjain
+          Blogs | Sankalpshree Invest – Financial Planning, LIC & Wealth
+          Insights by Seetaram Sharma, Ujjain
         </title>
         <meta
           name="description"
@@ -83,7 +83,7 @@ const Blogs = () => {
         />
         <meta
           name="keywords"
-          content="financial planning blog Ujjain, LIC insurance tips, mutual fund advice Ujjain, Mediclaim guide, retirement planning tips, child future planning, tax planning Ujjain, Seetaram Sharma blog, Sankalpshree Invest blog"
+          content="financial planning blog Ujjain, LIC insurance tips, mutual fund advice Ujjain, Mediclaim guide, retirement planning tips, child future planning, , Seetaram Sharma blog, Sankalpshree Invest blog"
         />
       </Head>
       <Navbar />

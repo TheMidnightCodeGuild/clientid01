@@ -25,11 +25,6 @@ const index = () => {
       icon: "/images/services/mf.png",
     },
     {
-      titleKey: "svc2Title",
-      descKey: "svc2Desc",
-      icon: "/images/services/pm.png",
-    },
-    {
       titleKey: "svc3Title",
       descKey: "svc3Desc",
       icon: "/images/services/rp.png",
@@ -60,11 +55,11 @@ const index = () => {
         </title>
         <meta
           name="description"
-          content="Sankalpshree Invest, led by Mr. Seetaram Sharma — LIC agent since 2008 and Member Zonal Manager's Club for Agents — is Ujjain's trusted financial advisor. Expert in mutual funds, LIC life insurance, health insurance (Mediclaim), retirement planning, child future planning, portfolio management (PMS), and tax planning."
+          content="Sankalpashree Wealth, led by Mr. Seetaram Sharma — LIC agent since 2008 and Member Zonal Manager's Club for Agents — is Ujjain's trusted financial advisor. Expert in mutual funds, LIC life insurance, health insurance (Mediclaim), retirement planning, child future planning, portfolio management (PMS), and ."
         />
         <meta
           name="keywords"
-          content="best financial advisor Ujjain, Seetaram Sharma Ujjain, LIC agent Ujjain, mutual funds Ujjain, life insurance Ujjain, LIC agent since 2008, retirement planning Ujjain, child future planning, Mediclaim Ujjain, portfolio management PMS, tax planning Ujjain, Sankalpshree Invest, wealth creation Ujjain, wealth protection Ujjain"
+          content="best financial advisor Ujjain, Seetaram Sharma Ujjain, LIC agent Ujjain, mutual funds Ujjain, life insurance Ujjain, LIC agent since 2008, retirement planning Ujjain, child future planning, Mediclaim Ujjain, Sankalpashree Wealth, wealth creation Ujjain, wealth protection Ujjain"
         />
       </Head>
       <Navbar />
@@ -182,7 +177,7 @@ const index = () => {
             <div className="relative rounded-2xl overflow-hidden w-full h-[420px] lg:h-[520px] shadow-xl">
               <Image
                 src="/images/main.png"
-                alt="Mr. Seetaram Sharma – Founder, Sankalpshree-wealth"
+                alt="Mr. Seetaram Sharma – Founder, Sankalpashree Wealth"
                 fill
                 className="object-cover object-top"
                 sizes="(max-width: 1024px) 100vw, 50vw"
