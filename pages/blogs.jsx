@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Navbar from "./components/header";
 import Footer from "./components/footer";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const Blogs = () => {
+  const { t } = useLanguage();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -62,7 +64,7 @@ const Blogs = () => {
       <main>
         <Navbar />
         <div className="min-h-screen flex items-center justify-center">
-          <p>Loading blogs...</p>
+          <p>{t("loadingBlogs")}</p>
         </div>
       </main>
     );
@@ -71,19 +73,29 @@ const Blogs = () => {
   return (
     <main>
       <Head>
-        <title>
-          Blogs | Sankalpshree Invest – Financial Planning, LIC & Wealth
-          Insights by Seetaram Sharma, Ujjain
-        </title>
-        <meta
-          name="description"
-          content="Read expert financial insights from Mr. Seetaram Sharma at Sankalpshree Invest, Ujjain — covering LIC life insurance tips, mutual fund strategies, Mediclaim guidance, retirement planning, child future planning, and tax-saving advice."
-        />
-        <meta
-          name="keywords"
-          content="financial planning blog Ujjain, LIC insurance tips, mutual fund advice Ujjain, Mediclaim guide, retirement planning tips, child future planning, , Seetaram Sharma blog, Sankalpshree Invest blog"
-        />
+        <title>Blogs | Sankalpashree Wealth – Financial Planning, LIC &amp; Investment Insights by Seetaram Sharma, Ujjain</title>
+        <meta name="description" content="Read expert financial insights from Mr. Seetaram Sharma at Sankalpashree Wealth, Ujjain — covering LIC life insurance tips, SIP & mutual fund strategies, Mediclaim guidance, retirement planning, child future planning, and tax-saving advice." />
+        <meta name="keywords" content="financial planning blog Ujjain, LIC insurance tips, SIP investment advice Ujjain, mutual fund strategies Ujjain, Mediclaim guide, retirement planning tips, child future planning, Seetaram Sharma blog, Sankalpashree Wealth blog" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Seetaram Sharma – Sankalpashree Wealth" />
+        <link rel="canonical" href="https://www.sankalpashreewealth.in/blogs" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Sankalpashree Wealth" />
+        <meta property="og:title" content="Financial Planning Blogs | Sankalpashree Wealth, Ujjain" />
+        <meta property="og:description" content="Expert financial tips on SIP, LIC insurance, Mediclaim, mutual funds & retirement planning from Seetaram Sharma at Sankalpashree Wealth, Ujjain." />
+        <meta property="og:url" content="https://www.sankalpashreewealth.in/blogs" />
+        <meta property="og:image" content="https://www.sankalpashreewealth.in/images/home.png" />
+        <meta property="og:locale" content="en_IN" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Financial Insights Blog | Sankalpashree Wealth, Ujjain" />
+        <meta name="twitter:description" content="SIP, LIC, Mediclaim & mutual fund tips from Seetaram Sharma — Ujjain's trusted financial advisor since 2008." />
+        <meta name="twitter:image" content="https://www.sankalpashreewealth.in/images/home.png" />
       </Head>
+
       <Navbar />
 
       <section
@@ -93,16 +105,16 @@ const Blogs = () => {
         <div className="absolute inset-0 bg-gray-800/50"></div>
         <div className="lg:max-w-[1300px] mx-auto px-4 flex items-center justify-center flex-col w-full gap-3 relative z-10 text-center">
           <h1 className="font-lexend text-3xl lg:text-5xl text-left text-white font-bold">
-            Our Blogs
+            {t("blogsPageTitle")}
           </h1>
           <p className="text-white text-sm font-medium lg:text-base max-w-xl">
-            Stay informed with the latest financial insights, investment strategies, and insurance guides from our experts.
+            {t("blogsPageSubtitle")}
           </p>
           <a
             href="/contact-us"
             className="ml-0 mt-1 rounded-full bg-white text-black font-semibold text-sm lg:text-base px-2 py-1 lg:px-3 lg:py-1.5 flex items-center transition-colors duration-200"
           >
-            Contact Us
+            {t("contactUs")}
             <span className="ml-2 w-8 h-8 rounded-full bg-theme1 flex items-center justify-center">
               <svg
                 className="lg:w-5 lg:h-5 w-4 h-4 text-white"
@@ -132,7 +144,7 @@ const Blogs = () => {
 
           {blogs.length === 0 ? (
             <div className="text-center text-gray-500 py-12">
-              No blogs found.
+              {t("noBlogsFound")}
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

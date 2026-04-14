@@ -4,24 +4,35 @@ import Navbar from "./components/header";
 import Footer from "./components/footer";
 import Link from "next/link";
 import Image from "next/image";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const About = () => {
+  const { t } = useLanguage();
   return (
     <>
       <Navbar />
       <Head>
-        <title>
-          About Us | Sankalpshree Invest – Mr. Seetaram Sharma, LIC Agent &
-          Mutual Fund Distributor, Ujjain Since 2008
-        </title>
-        <meta
-          name="description"
-          content="Learn about Mr. Seetaram Sharma — LIC agent since 2008, Member Zonal Manager's Club for Agents, and founder of Sankalpshree Invest, Ujjain. Specializing in mutual funds, LIC life insurance, Mediclaim, child future planning, retirement planning, and  for individuals and families."
-        />
-        <meta
-          name="keywords"
-          content="Seetaram Sharma Ujjain, LIC agent Ujjain since 2008, Sankalpshree Invest founder, Mutual Fund Distributor Ujjain, LIC Zonal Manager's Club member, mutual funds Ujjain, life insurance Ujjain, wealth management Ujjain, best Mutual Fund Advisor Ujjain"
-        />
+        <title>About Us | Sankalpashree Wealth – Mr. Seetaram Sharma, LIC Agent &amp; Mutual Fund Distributor, Ujjain Since 2008</title>
+        <meta name="description" content="Learn about Mr. Seetaram Sharma — LIC agent since 2008, Member Zonal Manager's Club for Agents, and founder of Sankalpashree Wealth, Ujjain. Specialising in mutual funds, LIC life insurance, Mediclaim, child future planning, and retirement planning." />
+        <meta name="keywords" content="Seetaram Sharma Ujjain, LIC agent Ujjain since 2008, Sankalpashree Wealth founder, Mutual Fund Distributor Ujjain, LIC Zonal Manager's Club member, mutual funds Ujjain, life insurance Ujjain, best Mutual Fund Advisor Ujjain" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Seetaram Sharma – Sankalpashree Wealth" />
+        <link rel="canonical" href="https://www.sankalpashreewealth.in/about-us" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Sankalpashree Wealth" />
+        <meta property="og:title" content="About Mr. Seetaram Sharma | Sankalpashree Wealth, Ujjain" />
+        <meta property="og:description" content="Trusted LIC agent and Mutual Fund Distributor in Ujjain since 2008. Learn about founder Mr. Seetaram Sharma and Sankalpashree Wealth's mission, vision, and values." />
+        <meta property="og:url" content="https://www.sankalpashreewealth.in/about-us" />
+        <meta property="og:image" content="https://www.sankalpashreewealth.in/images/home.png" />
+        <meta property="og:locale" content="en_IN" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Seetaram Sharma | Sankalpashree Wealth, Ujjain" />
+        <meta name="twitter:description" content="LIC agent since 2008 & Mutual Fund Distributor in Ujjain. Founder of Sankalpashree Wealth — 18+ years of trusted financial guidance." />
+        <meta name="twitter:image" content="https://www.sankalpashreewealth.in/images/home.png" />
       </Head>
       <main className="font-dm">
         {/* ── HERO BANNER ── */}
@@ -32,16 +43,16 @@ const About = () => {
           <div className="absolute inset-0 bg-gray-800/50"></div>
           <div className="max-w-[1300px] mx-auto px-4 flex items-start justify-start flex-col w-full gap-3 relative z-10 lg:mt-20 mt-10">
             <h1 className="font-dm text-3xl lg:text-5xl text-left text-white relative z-0 font-bold">
-              About Us
+              {t("aboutPageTitle")}
             </h1>
             <p className="text-white text-sm font-medium lg:text-base max-w-xl">
-              Learn about Mr. Seetaram Sharma — trusted LIC agent and Mutual Fund Distributor in Ujjain since 2008.
+              {t("aboutPageSubtitle")}
             </p>
             <Link
               href="/contact-us"
               className="ml-0 mt-1 rounded-full bg-white text-black font-semibold text-sm lg:text-base px-2 py-1 lg:px-3 lg:py-1.5 flex items-center transition-colors duration-200"
             >
-              Contact Us
+              {t("contactUs")}
               <span className="ml-2 w-8 h-8 rounded-full bg-theme1 flex items-center justify-center transition-colors duration-200">
                 <svg
                   className="lg:w-5 lg:h-5 w-4 h-4 text-white transition-colors duration-200"
@@ -85,7 +96,7 @@ const About = () => {
                 <div className="flex items-center gap-2 pb-2 mt-4">
                   <div className="w-3 h-3 bg-theme2 rounded-full"></div>
                   <span className="text-theme2 tracking-wider font-medium uppercase">
-                    Our Founder
+                    {t("ourFounder")}
                   </span>
                 </div>
 
@@ -94,9 +105,9 @@ const About = () => {
                 </h2>
 
                 <div className="mt-2 lg:text-lg text-base text-gray-700 leading-relaxed space-y-6 text-justify">
-                  <p>Mr. Seetaram Sharma is the founder of Sankalpashree Wealth and has been a trusted Mutual Fund Distributor in Ujjain for over 18 years. As a certified LIC agent since 2008 and a proud Member of the Zonal Manager's Club for Agents, he has guided thousands of families towards financial security.</p>
-                  <p>With deep expertise in mutual funds, LIC life insurance, health insurance, retirement planning, and child future planning, Mr. Sharma offers personalised financial solutions that are transparent, goal-oriented, and built on trust.</p>
-                  <p>His unwavering commitment to client welfare and long-term wealth creation has made Sankalpashree Wealth one of the most respected names in financial planning in Ujjain.</p>
+                  <p>{t("founderBio1")}</p>
+                  <p>{t("founderBio2")}</p>
+                  <p>{t("founderBio3")}</p>
                 </div>
               </div>
             </div>
@@ -108,7 +119,7 @@ const About = () => {
           <div className="lg:max-w-[1300px] mx-auto px-4">
             <div className="mb-6">
               <h1 className="text-3xl lg:text-4xl mb-2 font-bold text-gray-800">
-                Mission, Vision & Values
+                {t("missionVisionValues")}
               </h1>
               <div className="h-1.5 w-32 bg-blue-600 rounded-full"></div>
             </div>
@@ -130,10 +141,10 @@ const About = () => {
                 </div>
                 <div className="flex-grow">
                   <h2 className="text-gray-100 text-xl md:text-2xl font-bold mb-3">
-                    Our Mission
+                    {t("ourMission")}
                   </h2>
                   <p className="text-sm md:text-base text-gray-200">
-                    To empower every individual and family in Ujjain with trusted, personalised financial guidance — helping them build wealth, protect their loved ones, and achieve life's most important goals.
+                    {t("missionText")}
                   </p>
                 </div>
               </div>
@@ -167,10 +178,10 @@ const About = () => {
                 </div>
                 <div className="flex-grow">
                   <h2 className="text-white text-xl md:text-2xl font-bold mb-3">
-                    Our Vision
+                    {t("ourVision")}
                   </h2>
                   <p className="text-sm md:text-base text-white">
-                    To be the most trusted financial partner for 10,000+ families across Madhya Pradesh, delivering clarity, confidence, and long-term prosperity through honest financial planning.
+                    {t("visionText")}
                   </p>
                 </div>
               </div>
@@ -200,10 +211,10 @@ const About = () => {
                 </div>
                 <div className="flex-grow">
                   <h2 className="text-gray-100 text-xl md:text-2xl font-bold mb-3">
-                    Our Values
+                    {t("ourValues")}
                   </h2>
                   <p className="text-sm md:text-base text-gray-200">
-                    Integrity, transparency, and client-first thinking drive everything we do. We believe in no jargon, no mis-selling — only honest advice tailored to your unique financial journey.
+                    {t("valuesText")}
                   </p>
                 </div>
               </div>
@@ -218,30 +229,30 @@ const About = () => {
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-theme1 rounded-sm"></div>
                 <span className="text-theme1 tracking-wider font-medium uppercase">
-                  Financial Consultant
+                  {t("financialConsultant")}
                 </span>
               </div>
 
               <h2 className="text-3xl lg:text-4xl font-lexend font-bold mt-4 mb-6 text-gray-900">
-                Smart Solutions for Every Financial Goal
+                {t("smartSolutionsHeading")}
               </h2>
 
               <p className="text-gray-600 leading-relaxed mb-4">
-                With 18+ years of hands-on experience in mutual funds, LIC insurance, and investment planning, Mr. Seetaram Sharma delivers advice that is truly in your best interest — not commission-driven.
+                {t("smartSolutionsP1")}
               </p>
               <p className="text-gray-600 leading-relaxed">
-                Whether you are a first-time investor or planning for retirement, we build a roadmap that grows with you — structured, simple, and designed for real results.
+                {t("smartSolutionsP2")}
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-theme1/10 border pt-16 border-gray-200 rounded-2xl p-6 shadow-sm">
                 <p className="text-4xl font-bold text-theme1">18+</p>
-                <p className="text-gray-600 text-sm">Years of Consulting</p>
+                <p className="text-gray-600 text-sm">{t("yearsConsultingStat")}</p>
               </div>
               <div className="bg-gray-100 border pt-16 border-gray-200 rounded-2xl p-6 shadow-sm">
                 <p className="text-4xl font-bold text-gray-900">1400+</p>
-                <p className="text-gray-600 text-sm">Happy Clients</p>
+                <p className="text-gray-600 text-sm">{t("happyClientsStat")}</p>
               </div>
               <div
                 className="relative rounded-2xl overflow-hidden shadow-sm col-span-2 h-80 lg:h-72"
@@ -254,10 +265,10 @@ const About = () => {
                 <div className="absolute inset-0 bg-black/40"></div>
                 <div className="relative mt-20 z-10 h-full flex flex-col justify-center p-6">
                   <p className="text-3xl font-lexend font-semibold text-white">
-                    Trusted Financial Guidance
+                    {t("trustedFinancialGuidance")}
                   </p>
                   <p className="text-sm mt-2 text-white/80 max-w-md">
-                    Decades of experience delivering honest, personalised financial plans for families across Ujjain.
+                    {t("trustedFinancialGuidanceDesc")}
                   </p>
                 </div>
               </div>
@@ -285,17 +296,17 @@ const About = () => {
             <div className="relative z-10 flex flex-col lg:flex-row gap-8 items-start lg:items-center justify-between">
               <div>
                 <h3 className="text-3xl lg:text-3xl font-lexend font-semibold text-white leading-snug max-w-5xl">
-                  Ready to Start Your Financial Journey?
+                  {t("readyToStartJourney")}
                 </h3>
                 <p className="text-white/90 mt-4 max-w-2xl text-lg font-medium">
-                  Let us help you build wealth, protect your family, and plan for life's biggest goals — with trusted guidance every step of the way.
+                  {t("journeySubtitle")}
                 </p>
               </div>
               <Link
                 href="/contact-us"
                 className="group relative inline-flex items-center gap-3 bg-white text-gray-900 rounded-full pl-7 pr-5 py-3 px-20 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 border border-green-900"
               >
-                Contact Us
+                {t("contactUs")}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

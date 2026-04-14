@@ -1,8 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
   return (
     <footer className="bg-slate-800 font-dmsans w-full text-gray-900">
       <div className="max-w-[1300px] px-4 mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 py-6">
@@ -36,23 +38,23 @@ const Footer = () => {
           </div>
 
           <p className="text-gray-50 font-medium text-sm lg:text-base mb-6">
-            Your trusted partner for wealth creation and financial security.
+            {t("footerTagline")}
           </p>
         </div>
 
         {/* Quick Links */}
         <div className="lg:col-span-1">
-          <div className="text-white font-bold tracking-widest uppercase text-sm lg:text-base mb-4">Quick Links</div>
+          <div className="text-white font-bold tracking-widest uppercase text-sm lg:text-base mb-4">{t("quickLinks")}</div>
           <nav className="flex flex-col gap-2 lg:gap-3">
-            <div><Link href="/"          className="text-sm lg:text-base text-gray-50 hover:text-white">Home</Link></div>
-            <div><Link href="/about-us"  className="text-sm lg:text-base text-gray-50 hover:text-white">About Us</Link></div>
-            <div><Link href="/contact-us" className="text-sm lg:text-base text-gray-50 hover:text-white">Contact Us</Link></div>
+            <div><Link href="/"          className="text-sm lg:text-base text-gray-50 hover:text-white">{t("home")}</Link></div>
+            <div><Link href="/about-us"  className="text-sm lg:text-base text-gray-50 hover:text-white">{t("aboutUs")}</Link></div>
+            <div><Link href="/contact-us" className="text-sm lg:text-base text-gray-50 hover:text-white">{t("contactUs")}</Link></div>
           </nav>
         </div>
 
         {/* Mutual Funds */}
         <div className="lg:col-span-1">
-          <div className="text-white font-bold tracking-widest uppercase text-sm lg:text-base mb-4">Mutual Funds</div>
+          <div className="text-white font-bold tracking-widest uppercase text-sm lg:text-base mb-4">{t("mutualFunds")}</div>
           <nav className="flex flex-col gap-2 lg:gap-3">
   
             <div><Link href="/services#retirement-planning"   className="text-sm lg:text-base text-gray-50 hover:text-white">Retirement Planning</Link></div>
@@ -71,7 +73,7 @@ const Footer = () => {
 
         {/* Insurance */}
         <div className="lg:col-span-1">
-          <div className="text-white font-bold tracking-widest uppercase text-sm lg:text-base mb-4">Insurance</div>
+          <div className="text-white font-bold tracking-widest uppercase text-sm lg:text-base mb-4">{t("footerInsurance")}</div>
           <nav className="flex flex-col gap-2 lg:gap-3">
             <div><Link href="/services#life-insurance"             className="text-sm lg:text-base text-gray-50 hover:text-white">Life Insurance</Link></div>
             <div><Link href="/services#general-insurance"          className="text-sm lg:text-base text-gray-50 hover:text-white">General Insurance</Link></div>
@@ -84,7 +86,7 @@ const Footer = () => {
 
         {/* Contact */}
         <div className="col-span-1">
-          <div className="text-white font-bold tracking-widest uppercase text-sm lg:text-base mb-4">Contact</div>
+          <div className="text-white font-bold tracking-widest uppercase text-sm lg:text-base mb-4">{t("footerContact")}</div>
           <nav className="flex flex-col gap-4">
             <Link href="tel:+919425093166" className="flex items-start group">
               <div className="rounded-full w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center shrink-0 text-white">
@@ -143,10 +145,10 @@ const Footer = () => {
       <div className="bg-slate-900 py-3 w-full text-blue-50">
         <div className="max-w-[1300px] mx-auto px-4 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
           <Link href="/" className="font-medium text-sm sm:text-base text-center md:text-left hover:text-white uppercase">
-            © 2025 Sankalpashree Wealth. All rights reserved.
+            {t("footerCopyright")}
           </Link>
           <div className="flex flex-wrap justify-center md:justify-end text-center md:text-right text-sm sm:text-base">
-            Designed &amp; Developed by&nbsp;
+            {t("footerDesigned")}&nbsp;
             <Link href="https://www.noxalgo.com" target="_blank" className="font-medium hover:text-white uppercase self-center">
               Noxalgo LLP
             </Link>

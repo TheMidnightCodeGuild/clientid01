@@ -1,24 +1,22 @@
 {
-  "name": "sankalpashree-wealth",
+  "name": "sankalpashreewealth",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "aloo": "^1.0.0",
-    "emailjs": "^4.0.3",
-    "firebase": "^12.11.0",
+    "firebase": "^12.12.0",
     "multer": "^2.1.1",
-    "mutter": "^1.0.1",
     "next": "^16.1.6",
+    "next-sitemap": "^4.2.3",
     "nodemailer": "^8.0.5",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-icons": "^5.4.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "sharp": "^0.34.5",
     "swiper": "^12.1.3"
   },

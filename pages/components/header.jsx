@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useLanguage } from "@/lib/LanguageContext";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Dot = ({ size = "sm" }) => (
   <span
@@ -14,6 +16,7 @@ const Navbar = () => {
   const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
@@ -68,9 +71,9 @@ const Navbar = () => {
             {/* Nav Links */}
             <div className="flex items-center gap-6 text-black font-dm text-base font-medium">
               {[
-                { href: "/",         label: "Home" },
-                { href: "/about-us", label: "About Us" },
-                { href: "/gallery",  label: "Gallery" },
+                { href: "/",         label: t("home") },
+                { href: "/about-us", label: t("aboutUs") },
+                { href: "/gallery",  label: t("gallery") },
               ].map(({ href, label }) => (
                 <Link key={href} href={href} className="relative py-1 transition-colors group">
                   {label}
@@ -106,10 +109,10 @@ const Navbar = () => {
                   <div className="grid grid-cols-2 gap-6">
                     {/* Wealth column */}
                     <div>
-                      <p className="text-lg font-semibold text-black mb-2">Wealth</p>
+                      <p className="text-lg font-semibold text-black mb-2">{t("wealth")}</p>
                       <div className="space-y-1">
                         <Link href="/services#mutual-funds" className="block text-gray-700 hover:text-theme1 text-base font-medium">
-                          Mutual Funds
+                          {t("mutualFunds")}
                         </Link>
                         <ul className="pl-3 space-y-0.5 border-l-2 border-blue-100">
                           {mutualFundItems.map(({ href, label }) => (
@@ -126,11 +129,11 @@ const Navbar = () => {
 
                     {/* Insurance column */}
                     <div>
-                      <p className="text-lg font-semibold text-black mb-2">Insurance</p>
+                      <p className="text-lg font-semibold text-black mb-2">{t("insurance")}</p>
                       <div className="space-y-1">
                         {/* Life Insurance + sub-bullets */}
                         <Link href="/services#life-insurance" className="block text-gray-700 hover:text-theme1 text-base">
-                          Life Insurance
+                          {t("lifeInsurance")}
                         </Link>
                         <ul className="pl-3 space-y-0.5 border-l-2 border-blue-100">
                           {lifeInsuranceItems.map(({ href, label }) => (
@@ -143,7 +146,7 @@ const Navbar = () => {
 
                         {/* General Insurance + sub-bullets */}
                         <Link href="/services#general-insurance" className="block text-gray-700 hover:text-theme1 text-base font-medium pt-1">
-                          General Insurance
+                          {t("generalInsurance")}
                         </Link>
                         <ul className="pl-3 space-y-0.5 border-l-2 border-blue-100">
                           {generalInsuranceItems.map(({ href, label }) => (
@@ -160,16 +163,19 @@ const Navbar = () => {
               </div>
 
               <Link href="/blogs" className="relative py-1 transition-colors group">
-                Blogs
+                {t("blogs")}
                 <span className="absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
               </Link>
+
+              {/* Language Switcher */}
+              <LanguageSwitcher />
 
               {/* Contact Button */}
               <Link
                 href="/contact-us"
                 className="ml-1 rounded-full bg-theme1 text-white font-medium text-base px-3 py-1.5 flex items-center gap-2 shadow-lg transition"
               >
-                Contact Us
+                {t("contactUs")}
                 <span className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -231,9 +237,9 @@ const Navbar = () => {
           <div className="p-4 overflow-y-auto h-[calc(100vh-80px)]">
             <div className="space-y-2">
               {[
-                { href: "/",         label: "Home" },
-                { href: "/about-us", label: "About Us" },
-                { href: "/gallery",  label: "Gallery" },
+                { href: "/",         label: t("home") },
+                { href: "/about-us", label: t("aboutUs") },
+                { href: "/gallery",  label: t("gallery") },
               ].map(({ href, label }) => (
                 <Link key={href} href={href} onClick={closeMobileMenu} className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors">
                   {label}
@@ -253,9 +259,9 @@ const Navbar = () => {
                 </button>
 
                 <div className={`mt-2 space-y-2 pl-4 ${mobileServicesOpen ? "block" : "hidden"}`}>
-                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">Wealth</p>
+                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">{t("wealth")}</p>
                   <Link href="/services#mutual-funds" onClick={closeMobileMenu} className="block py-1.5 px-2 text-gray-700 font-medium hover:text-blue-600 text-sm">
-                    Mutual Funds
+                    {t("mutualFunds")}
                   </Link>
                   <ul className="pl-3 mb-1 space-y-1 border-l-2 border-blue-100">
                     {mutualFundItems.map(({ href, label }) => (
@@ -268,9 +274,9 @@ const Navbar = () => {
                     ))}
                   </ul>
 
-                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">Insurance</p>
+                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">{t("insurance")}</p>
                   <Link href="/services#life-insurance" onClick={closeMobileMenu} className="block py-1.5 px-2 text-gray-700 hover:text-blue-600 text-sm">
-                    Life Insurance
+                    {t("lifeInsurance")}
                   </Link>
                   <ul className="pl-3 mb-1 space-y-1 border-l-2 border-blue-100">
                     {lifeInsuranceItems.map(({ href, label }) => (
@@ -282,7 +288,7 @@ const Navbar = () => {
                   </ul>
 
                   <Link href="/services#general-insurance" onClick={closeMobileMenu} className="block py-1.5 px-2 text-gray-700 font-medium hover:text-blue-600 text-sm">
-                    General Insurance
+                    {t("generalInsurance")}
                   </Link>
                   <ul className="pl-3 space-y-1 border-l-2 border-blue-100">
                     {generalInsuranceItems.map(({ href, label }) => (
@@ -296,12 +302,17 @@ const Navbar = () => {
               </div>
 
               <Link href="/blogs" onClick={closeMobileMenu} className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors">
-                Blogs
+                {t("blogs")}
               </Link>
+
+              {/* Language Switcher – mobile */}
+              <div className="pt-2 px-4">
+                <LanguageSwitcher />
+              </div>
 
               <div className="pt-4">
                 <Link href="/contact-us" onClick={closeMobileMenu} className="block w-full text-center font-medium text-base bg-theme1 hover:opacity-95 text-white px-6 py-3 rounded-lg">
-                  Contact Now
+                  {t("contactNow2")}
                 </Link>
               </div>
             </div>

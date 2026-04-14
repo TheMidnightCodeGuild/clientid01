@@ -3,6 +3,7 @@ import Head from "next/head";
 import Navbar from "./components/header";
 import Image from "next/image";
 import Footer from "./components/footer";
+import { useLanguage } from "@/lib/LanguageContext";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
@@ -11,127 +12,24 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const strings = {
-  heroTitle1: "Invest Smart,",
-  heroTitle2: "Secure Your Future",
-  heroDesc:
-    "Trusted financial guidance since 2008 — mutual funds, life insurance, health insurance, and retirement planning tailored to your goals.",
-  contactNow: "Contact Now",
-  aboutBadge: "About Us",
-  aboutHeading: "Building Wealth & Protecting Futures Since 2008",
-  aboutBody:
-    "Mr. Seetaram Sharma, founder of Sankalpashree Wealth, has been a trusted Mutual Fund Distributor in Ujjain for over 18 years. As a certified LIC agent and Member of the Zonal Manager's Club for Agents, he specialises in mutual funds, life insurance, health insurance, retirement planning, and comprehensive .",
-  aboutFeature1: "LIC Agent – Since 2008",
-  aboutFeature2: "Mutual Fund Distributor",
-  aboutFeature3: "Retirement Planning Expert",
+// ─── Dream Goal Section ───────────────────────────────────────────────────────
 
-  knowMore: "Know More",
-  founderTitle: "Founder & Mutual Fund Distributor, Ujjain",
-  whyChooseUs: "Why Choose Us",
-  trustedGuidance: "Trusted Guidance for",
-  smartDecisions: "Smart Decisions",
-  whyBody:
-    "With 18+ years of hands-on experience, we provide personalised financial solutions that align with your life goals — from wealth creation to family protection.",
-  expertGuidanceTitle: "Expert Financial Guidance",
-  expertGuidanceBody:
-    "Decades of experience in mutual funds, LIC insurance, and investment planning help us deliver advice that is truly in your best interest.",
-  completeInsuranceTitle: "Complete Insurance Coverage",
-  completeInsuranceBody:
-    "From life and health to general and accident insurance, we help you protect what matters most with the right coverage at the best price.",
-  personalizedPlanningTitle: "Personalised Financial Planning",
-  personalizedPlanningBody:
-    "Every client gets a customised plan — whether you are saving for education, retirement, a home, or a dream vacation.",
-  yearsConsulting: "Years of Consulting",
-  happyClients: "Happy Clients",
-  servicesOffered: "Services Offered",
-  plansGuided: "Plans Guided",
-  clientSatisfaction: "Client Satisfaction",
-  ourServices: "Our Services",
-  professionalServices: "Professional",
-  servicesWeOffer: "Services We Offer",
-  servicesSubtitle:
-    "From mutual funds to insurance, we offer end-to-end financial services to help every individual achieve their financial goals.",
-  exploreService: "Explore Service",
-  svc1Title: "Mutual Funds",
-  svc1Desc:
-    "Invest in diversified mutual fund portfolios tailored to your risk appetite and financial goals with expert guidance every step of the way.",
-  svc3Title: "Retirement Planning",
-  svc3Desc:
-    "Build a robust retirement corpus with structured SIP plans and annuity-linked strategies so you retire with complete financial independence.",
-  svc4Title: "Life Insurance",
-  svc4Desc:
-    "Secure your family's future with the right life insurance policy — term, endowment, or ULIP — from India's leading insurers including LIC.",
-  svc5Title: "Health Insurance",
-  svc5Desc:
-    "Protect yourself and your family from rising medical costs with comprehensive health insurance plans and wide network hospital coverage.",
-  svc6Title: "General Insurance",
-  svc6Desc:
-    "Safeguard your valuable assets — vehicle, home, and more — with the right general insurance plan at the most competitive premiums.",
-  testimonials: "Testimonials",
-  hearFromClients: "Hear From",
-  ourClients: "Our Clients",
-  testimonialsSubtitle:
-    "Real stories from real clients who have trusted us with their financial future.",
-  t1Text:
-    "Mr. Seetaram Sharma helped me plan my retirement at 40. His guidance on SIPs and insurance has completely transformed my financial life. I feel secure knowing my family is protected.",
-  t1Name: "Rajesh Patidar",
-  t1Role: "Retired Engineer, Ujjain",
-  t2Text:
-    "I was confused about mutual funds and LIC policies. Seetaram ji explained everything clearly and helped me choose the right plan for my children's education. Highly recommended!",
-  t2Name: "Priya Malhotra",
-  t2Role: "Teacher, Ujjain",
-  t3Text:
-    "Thanks to Sankalpashree Wealth, I have been doing SIP for 5 years now. My portfolio has grown steadily and I now feel confident about my financial future. Excellent service and transparent advice.",
-  t3Name: "Amit Sharma",
-  t3Role: "Business Owner, Ujjain",
-  readMore: "Read More",
-  readLess: "Read Less",
-  faqHeading: "Frequently Asked",
-  faqHeading2: "Questions",
-  faqSubtitle:
-    "Find answers to the most common questions about our financial services.",
-  faq1Q: "What is the minimum amount to start a SIP?",
-  faq1A:
-    "You can start a SIP with as little as ₹500 per month. There is no maximum limit. The earlier you start, the more you benefit from the power of compounding.",
-  faq2Q: "Is LIC better than private life insurance?",
-  faq2A:
-    "LIC is a government-backed insurer with a strong claim settlement record. Both LIC and private insurers offer good policies. We help you compare and choose based on your specific needs.",
-  faq3Q: "How do I choose the right mutual fund?",
-  faq3A:
-    "The right fund depends on your risk appetite, investment horizon, and financial goals. We assess your profile and recommend the most suitable funds — equity, debt, or hybrid.",
-  faq4Q: "What is the difference between term and whole life insurance?",
-  faq4A:
-    "Term insurance provides pure death benefit at low cost for a fixed period. Whole life insurance covers you for life and includes a savings component. We help you decide which fits your goal.",
-  faq5Q: "When should I start retirement planning?",
-  faq5A:
-    "The earlier, the better — ideally in your 20s or 30s. Starting early allows you to accumulate a large retirement corpus through disciplined SIP investments over a longer period.",
-  faq6Q: "Can I get tax benefits on my investments?",
-  faq6A:
-    "Yes. Investments in ELSS mutual funds, LIC premiums, PPF, and health insurance qualify for tax deductions under Section 80C and 80D of the Income Tax Act.",
-  ctaHeading: "Ready to Secure",
-  ctaHeading2: "Your Financial Future?",
-  ctaSubtitle:
-    "Let us help you build wealth, protect your family, and plan for life's biggest goals.",
-  getInTouch: "Get In Touch",
-};
-const t = (key) => strings[key] ?? key;
-
-// ─── Dream Goal Section ────────────────────────────────────────────────────────
-const GOALS = [
-  "Kids Marriage Planning",
-  "Kids Education Planning",
-  "Tax Saving",
-  "Dream Car",
-  "Dream House",
-  "Dream Vacation",
-  "Retirement Planning",
-  "SIP Investment",
-  "Life Insurance",
-  "Health Insurance",
-  "Other",
+const GOAL_KEYS = [
+  "goalKidsMarriage",
+  "goalKidsEducation",
+  "goalTaxSaving",
+  "goalDreamCar",
+  "goalDreamHouse",
+  "goalDreamVacation",
+  "goalRetirement",
+  "goalSIP",
+  "goalLifeInsurance",
+  "goalHealthInsurance",
+  "goalOther",
 ];
 
 const DreamGoalSection = () => {
+  const { t } = useLanguage();
   const [form, setForm] = React.useState({ name: "", phone: "", goal: "", customGoal: "" });
   const [status, setStatus] = React.useState("idle"); // idle | loading | success | error
 
@@ -172,23 +70,21 @@ const DreamGoalSection = () => {
           <div className="absolute left-40 bottom-10 w-48 h-48 rounded-full bg-indigo-400/10 blur-2xl pointer-events-none" />
 
           <span className="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-[0.3em] mb-4">
-            <span className="w-6 h-px bg-blue-400"></span> Sankalpashree Wealth
+            <span className="w-6 h-px bg-blue-400"></span> {t("dreamGoalBadge")}
           </span>
           <h2 className="text-4xl xl:text-5xl font-extrabold text-white leading-tight mb-5">
-            Draw Your <br />
+            {t("dreamGoalTitle1")} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
-              Dream Goal
+              {t("dreamGoalTitle2")}
             </span>
           </h2>
           <p className="text-gray-400 text-base leading-relaxed max-w-sm">
-            Tell us what you're dreaming of — whether it's your child's
-            education, a home, or a stress-free retirement. We'll map out the
-            perfect financial plan to get you there.
+            {t("dreamGoalDesc")}
           </p>
 
           {/* trust badges */}
           <div className="mt-10 flex flex-col gap-3">
-            {["18+ Years of Trusted Guidance", "1400+ Happy Investors", "Personalised Plans — No Jargon"].map((item) => (
+            {[t("dreamGoalBadge1"), t("dreamGoalBadge2"), t("dreamGoalBadge3")].map((item) => (
               <div key={item} className="flex items-center gap-3">
                 <span className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
                   <svg className="w-3 h-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -208,13 +104,13 @@ const DreamGoalSection = () => {
             {/* Mobile heading */}
             <div className="lg:hidden mb-6 text-center">
               <h2 className="text-3xl font-extrabold text-white">
-                Draw Your{" "}
+                {t("dreamGoalTitle1")}{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
-                  Dream Goal
+                  {t("dreamGoalTitle2")}
                 </span>
               </h2>
               <p className="text-gray-400 text-sm mt-2">
-                Share your goal — we'll craft the plan.
+                {t("dreamGoalMobileDesc")}
               </p>
             </div>
 
@@ -225,22 +121,22 @@ const DreamGoalSection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold text-white">Goal Received! 🎯</h3>
+                <h3 className="text-xl font-bold text-white">{t("goalReceived")}</h3>
                 <p className="text-gray-400 text-sm max-w-xs">
-                  We've received your dream goal. Our team will reach out within 24 hours with a personalised plan.
+                  {t("goalReceivedDesc")}
                 </p>
                 <button
                   onClick={() => setStatus("idle")}
                   className="mt-2 px-6 py-2 rounded-full text-sm font-semibold bg-blue-500 text-white hover:bg-blue-600 transition"
                 >
-                  Submit Another Goal
+                  {t("submitAnotherGoal")}
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                 <div>
                   <label htmlFor="dg-name" className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">
-                    Your Name
+                    {t("labelName")}
                   </label>
                   <input
                     id="dg-name"
@@ -248,7 +144,7 @@ const DreamGoalSection = () => {
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Your Name"
+                    placeholder={t("placeholderName")}
                     required
                     className="w-full bg-white/8 border border-white/15 rounded-xl px-4 py-3 text-black placeholder-gray-500 text-sm focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition"
                   />
@@ -256,7 +152,7 @@ const DreamGoalSection = () => {
 
                 <div>
                   <label htmlFor="dg-phone" className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">
-                    Phone Number
+                    {t("labelPhone")}
                   </label>
                   <input
                     id="dg-phone"
@@ -264,7 +160,7 @@ const DreamGoalSection = () => {
                     name="phone"
                     value={form.phone}
                     onChange={handleChange}
-                    placeholder="Phone Number"
+                    placeholder={t("placeholderPhone")}
                     required
                     pattern="[0-9+\s\-]{8,15}"
                     className="w-full bg-white/8 border border-white/15 rounded-xl px-4 py-3 text-black placeholder-gray-500 text-sm focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition"
@@ -273,7 +169,7 @@ const DreamGoalSection = () => {
 
                 <div>
                   <label htmlFor="dg-goal" className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">
-                    My Dream Goal
+                    {t("labelGoal")}
                   </label>
                   <select
                     id="dg-goal"
@@ -284,21 +180,21 @@ const DreamGoalSection = () => {
                     className="w-full bg-[#0f2236] border border-white/15 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition appearance-none"
                     style={{ color: form.goal ? "#fff" : "#6b7280" }}
                   >
-                    <option value="" disabled>Select your goal…</option>
-                    {GOALS.map((g) => (
-                      <option key={g} value={g} className="text-white bg-[#0f2236]">{g}</option>
+                    <option value="" disabled>{t("selectGoalPlaceholder")}</option>
+                    {GOAL_KEYS.map((key) => (
+                      <option key={key} value={t(key)} className="text-white bg-[#0f2236]">{t(key)}</option>
                     ))}
                   </select>
 
-                  {/* Custom goal textarea – shown only when "Other" is selected */}
-                  {form.goal === "Other" && (
+                  {/* Custom goal textarea – shown only when "Other" / "अन्य" is selected */}
+                  {(form.goal === t("goalOther")) && (
                     <div style={{ marginTop: "12px" }}>
                       <textarea
                         id="dg-custom-goal"
                         name="customGoal"
                         value={form.customGoal}
                         onChange={handleChange}
-                        placeholder="Describe your dream goal here…"
+                        placeholder={t("describeGoalPlaceholder")}
                         required
                         rows={3}
                         className="w-full bg-[#0f2236] border border-blue-400/50 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition resize-none"
@@ -310,7 +206,7 @@ const DreamGoalSection = () => {
 
                 {status === "error" && (
                   <p className="text-red-400 text-xs text-center">
-                    Something went wrong. Please try again or call us directly.
+                    {t("errorMsg")}
                   </p>
                 )}
 
@@ -326,17 +222,17 @@ const DreamGoalSection = () => {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                       </svg>
-                      Sending…
+                      {t("sendingBtn")}
                     </>
                   ) : (
                     <>
-                      🎯 Send My Dream Goal
+                      {t("sendGoalBtn")}
                     </>
                   )}
                 </button>
 
                 <p className="text-center text-xs text-gray-500 mt-1">
-                  We'll reach out within 24 hours — no spam, promise.
+                  {t("noSpamNote")}
                 </p>
               </form>
             )}
@@ -348,6 +244,7 @@ const DreamGoalSection = () => {
 };
 
 const index = () => {
+  const { t } = useLanguage();
   const servicePrevRef = useRef(null);
   const serviceNextRef = useRef(null);
   const servicePaginationRef = useRef(null);
@@ -383,19 +280,61 @@ const index = () => {
   return (
     <>
       <Head>
-        <title>
-          Sankalpshree Invest | Best Mutual Fund Distributor in Ujjain –
-          Seetaram Sharma | LIC, Mutual Funds & Wealth Planning
-        </title>
-        <meta
-          name="description"
-          content="Sankalpashree Wealth, led by Mr. Seetaram Sharma — LIC agent since 2008 and Member Zonal Manager's Club for Agents — is Ujjain's trusted Mutual Fund Distributor. Expert in mutual funds, LIC life insurance, health insurance (Mediclaim), retirement planning, child future planning"
-        />
-        <meta
-          name="keywords"
-          content="best Mutual Fund Distributor Ujjain, Seetaram Sharma Ujjain, LIC agent Ujjain, mutual funds Ujjain, life insurance Ujjain, LIC agent since 2008, retirement planning Ujjain, child future planning, Mediclaim Ujjain, Sankalpashree Wealth"
+        <title>Sankalpashree Wealth | Best Mutual Fund Distributor in Ujjain – Seetaram Sharma | LIC, SIP &amp; Insurance</title>
+        <meta name="description" content="Sankalpashree Wealth, led by Mr. Seetaram Sharma — LIC agent since 2008, Member Zonal Manager's Club — is Ujjain's trusted Mutual Fund Distributor. Expert in SIP, LIC life insurance, health insurance, Mediclaim, retirement planning, and child future planning." />
+        <meta name="keywords" content="best Mutual Fund Distributor Ujjain, Seetaram Sharma Ujjain, LIC agent Ujjain, SIP investment Ujjain, mutual funds Ujjain, life insurance Ujjain, Mediclaim Ujjain, retirement planning Ujjain, child future planning Ujjain, Sankalpashree Wealth" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Seetaram Sharma – Sankalpashree Wealth" />
+        <link rel="canonical" href="https://www.sankalpashreewealth.in/" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Sankalpashree Wealth" />
+        <meta property="og:title" content="Sankalpashree Wealth | Best Mutual Fund Distributor in Ujjain" />
+        <meta property="og:description" content="Trusted financial advisor in Ujjain since 2008. Expert in mutual funds, LIC insurance, SIP, Mediclaim, retirement & child planning. Book a free consultation today." />
+        <meta property="og:url" content="https://www.sankalpashreewealth.in/" />
+        <meta property="og:image" content="https://www.sankalpashreewealth.in/images/home.png" />
+        <meta property="og:locale" content="en_IN" />
+        <meta property="og:locale:alternate" content="hi_IN" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Sankalpashree Wealth | Mutual Fund Distributor & LIC Agent, Ujjain" />
+        <meta name="twitter:description" content="Trusted financial advisor in Ujjain since 2008 — SIP, LIC, Mediclaim, retirement & child planning by Mr. Seetaram Sharma." />
+        <meta name="twitter:image" content="https://www.sankalpashreewealth.in/images/home.png" />
+
+        {/* JSON-LD: LocalBusiness */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FinancialService",
+              name: "Sankalpashree Wealth",
+              description: "Mutual Fund Distributor and LIC Agent in Ujjain since 2008 offering SIP, life insurance, health insurance, retirement planning, and child future planning.",
+              url: "https://www.sankalpashreewealth.in",
+              telephone: "+91-9425093166",
+              email: "sankalpshreeinvest@gmail.com",
+              foundingDate: "2008",
+              founder: {
+                "@type": "Person",
+                name: "Seetaram Sharma",
+                jobTitle: "Mutual Fund Distributor & LIC Agent",
+              },
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Ujjain",
+                addressRegion: "Madhya Pradesh",
+                addressCountry: "IN",
+              },
+              areaServed: "Ujjain, Madhya Pradesh, India",
+              priceRange: "Free Consultation",
+              openingHours: "Mo-Sa 09:00-19:00",
+            }),
+          }}
         />
       </Head>
+
       <Navbar />
 
       {/* ── HERO ── */}
@@ -409,7 +348,7 @@ const index = () => {
           <div className="lg:max-w-[1300px] mx-auto w-full px-4">
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-5 py-20 lg:py-0">
               <p className="inline-block text-[10px] sm:text-xs uppercase tracking-[0.4em] py-1.5 px-4 rounded-full text-white bg-white/30 backdrop-blur-md border border-white/40 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
-                Trusted Mutual Fund Distributor Since 2008
+                {t("trustedSince")}
               </p>
 
               <h1 className="text-3xl lg:text-6xl lg:leading-[60px] font-normal text-white font-lexend">

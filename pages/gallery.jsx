@@ -2,8 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import Navbar from "./components/header";
 import Footer from "./components/footer";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const Gallery = () => {
+  const { t } = useLanguage();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -67,7 +69,7 @@ const Gallery = () => {
       <main className="font-dm">
         <Navbar />
         <div className="min-h-screen flex items-center justify-center">
-          <p>Loading images...</p>
+          <p>{t("loadingImages")}</p>
         </div>
       </main>
     );
@@ -76,19 +78,29 @@ const Gallery = () => {
   return (
     <main className="font-dm">
       <Head>
-        <title>
-          Gallery | Sankalpshree Invest – Events & Milestones by Seetaram
-          Sharma, Mutual Fund Distributor & LIC Agent, Ujjain
-        </title>
-        <meta
-          name="description"
-          content="Browse the gallery of Sankalpshree Invest — view client milestones, LIC insurance events, financial planning workshops, and team moments from Ujjain. Led by Mr. Seetaram Sharma, LIC agent since 2008 and Member Zonal Manager's Club for Agents."
-        />
-        <meta
-          name="keywords"
-          content="Sankalpshree Invest gallery, Seetaram Sharma events Ujjain, LIC agent Ujjain, Mutual Fund Distributor events Ujjain, mutual fund workshop Ujjain, wealth planning gallery"
-        />
+        <title>Gallery | Sankalpashree Wealth – Events &amp; Milestones by Seetaram Sharma, Mutual Fund Distributor &amp; LIC Agent, Ujjain</title>
+        <meta name="description" content="Browse the gallery of Sankalpashree Wealth — client milestones, LIC insurance events, SIP & financial planning workshops, and team moments from Ujjain. Led by Mr. Seetaram Sharma, LIC agent since 2008 and Member Zonal Manager's Club for Agents." />
+        <meta name="keywords" content="Sankalpashree Wealth gallery, Seetaram Sharma events Ujjain, LIC agent Ujjain, Mutual Fund Distributor events Ujjain, SIP workshop Ujjain, wealth planning gallery Ujjain" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Seetaram Sharma – Sankalpashree Wealth" />
+        <link rel="canonical" href="https://www.sankalpashreewealth.in/gallery" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Sankalpashree Wealth" />
+        <meta property="og:title" content="Gallery | Sankalpashree Wealth – Ujjain" />
+        <meta property="og:description" content="View client milestones, LIC events, and financial planning workshops at Sankalpashree Wealth, Ujjain — led by Mr. Seetaram Sharma since 2008." />
+        <meta property="og:url" content="https://www.sankalpashreewealth.in/gallery" />
+        <meta property="og:image" content="https://www.sankalpashreewealth.in/images/home.png" />
+        <meta property="og:locale" content="en_IN" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Gallery | Sankalpashree Wealth, Ujjain" />
+        <meta name="twitter:description" content="Client milestones, LIC events and SIP workshops from Sankalpashree Wealth, Ujjain — Mr. Seetaram Sharma since 2008." />
+        <meta name="twitter:image" content="https://www.sankalpashreewealth.in/images/home.png" />
       </Head>
+
       <Navbar />
 
       {/* Hero Banner */}
@@ -99,18 +111,16 @@ const Gallery = () => {
         <div className="absolute inset-0 bg-gray-800/50"></div>
         <div className="lg:max-w-[1300px] mx-auto px-4 flex items-start justify-start flex-col w-full gap-3 relative z-10 text-center">
           <h1 className="font-lexend text-3xl lg:text-5xl text-left text-white font-bold">
-            Our Gallery
+            {t("galleryPageTitle")}
           </h1>
           <p className="text-white text-sm font-medium lg:text-base max-w-xl">
-            A glimpse into our journey — from client milestones and financial
-            workshops to team moments that reflect our commitment to trust and
-            long-term financial partnerships.
+            {t("galleryPageSubtitle")}
           </p>
           <a
             href="/contact-us"
             className="ml-0 mt-1 rounded-full bg-white text-black font-semibold text-sm lg:text-base px-2 py-1 lg:px-3 lg:py-1.5 flex items-center transition-colors duration-200"
           >
-            Contact Us
+            {t("contactUs")}
             <span className="ml-2 w-8 h-8 rounded-full bg-theme1 flex items-center justify-center">
               <svg
                 className="lg:w-5 lg:h-5 w-4 h-4 text-white"
@@ -135,7 +145,7 @@ const Gallery = () => {
         <div className="max-w-[1300px] mx-auto px-4 lg:px-6">
           {images.length === 0 ? (
             <div className="text-center py-12 text-gray-500">
-              No images found.
+              {t("noImagesFound")}
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -3,8 +3,10 @@ import Head from "next/head";
 import Navbar from "./components/header";
 import Image from "next/image";
 import Footer from "./components/footer";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Contactus() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -50,18 +52,27 @@ export default function Contactus() {
   return (
     <div>
       <Head>
-        <title>
-          Contact Us | Sankalpshree Invest – Reach Seetaram Sharma, LIC Agent
-          &amp; Mutual Fund Distributor, Ujjain
-        </title>
-        <meta
-          name="description"
-          content="Contact Mr. Seetaram Sharma at Sankalpshree Invest, Ujjain — LIC agent since 2008, Member Zonal Manager's Club for Agents, and expert Mutual Fund Distributor. Reach us for mutual funds, LIC life insurance, Mediclaim, retirement planning, child future planning, and . Call +91 94250-93166."
-        />
-        <meta
-          name="keywords"
-          content="contact LIC agent Ujjain, Seetaram Sharma contact, Sankalpshree Invest contact, Mutual Fund Distributor Ujjain contact, mutual funds consultation Ujjain, LIC insurance Ujjain, 94250-93166, sankalpshreeinvest@gmail.com"
-        />
+        <title>Contact Us | Sankalpashree Wealth – Reach Seetaram Sharma, LIC Agent &amp; Mutual Fund Distributor, Ujjain</title>
+        <meta name="description" content="Contact Mr. Seetaram Sharma at Sankalpashree Wealth, Ujjain — LIC agent since 2008, Member Zonal Manager's Club for Agents, and expert Mutual Fund Distributor. Call +91 94250-93166 for mutual funds, LIC insurance, Mediclaim, retirement planning, and child future planning." />
+        <meta name="keywords" content="contact LIC agent Ujjain, Seetaram Sharma contact, Sankalpashree Wealth contact, Mutual Fund Distributor Ujjain, mutual funds consultation Ujjain, LIC insurance Ujjain, +91 9425093166" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Seetaram Sharma – Sankalpashree Wealth" />
+        <link rel="canonical" href="https://www.sankalpashreewealth.in/contact-us" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Sankalpashree Wealth" />
+        <meta property="og:title" content="Contact Sankalpashree Wealth | Seetaram Sharma, Ujjain" />
+        <meta property="og:description" content="Get in touch with Mr. Seetaram Sharma — trusted LIC agent & Mutual Fund Distributor in Ujjain since 2008. Call +91 94250-93166 for a free consultation." />
+        <meta property="og:url" content="https://www.sankalpashreewealth.in/contact-us" />
+        <meta property="og:image" content="https://www.sankalpashreewealth.in/images/home.png" />
+        <meta property="og:locale" content="en_IN" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact Sankalpashree Wealth | Ujjain" />
+        <meta name="twitter:description" content="Reach Mr. Seetaram Sharma — LIC agent & Mutual Fund Distributor in Ujjain since 2008. Call +91 94250-93166." />
+        <meta name="twitter:image" content="https://www.sankalpashreewealth.in/images/home.png" />
       </Head>
       <Navbar />
 
@@ -73,16 +84,16 @@ export default function Contactus() {
         <div className="absolute inset-0 bg-gray-800/50"></div>
         <div className="lg:max-w-[1300px] mx-auto px-4 flex items-center justify-center flex-col w-full gap-3 relative z-10 text-center">
           <h1 className="font-lexend text-3xl lg:text-5xl text-left text-white font-bold">
-            Contact Us
+            {t("contactPageTitle")}
           </h1>
           <p className="text-white text-sm font-medium lg:text-base max-w-xl">
-            Reach out to us for personalised financial guidance — we're here to help.
+            {t("contactPageSubtitle")}
           </p>
           <a
             href="tel:+919425093166"
             className="ml-0 mt-1 rounded-full bg-white text-black font-semibold text-sm lg:text-base px-2 py-1 lg:px-3 lg:py-1.5 flex items-center transition-colors duration-200"
           >
-            Call Us
+            {t("callUs")}
             <span className="ml-2 w-8 h-8 rounded-full bg-theme1 flex items-center justify-center">
               <svg
                 className="lg:w-5 lg:h-5 w-4 h-4 text-white"
@@ -116,9 +127,9 @@ export default function Contactus() {
                     width={500}
                     height={300}
                   />
-                  <h1 className="font-manrope text-white text-4xl font-bold leading-10 absolute top-11 left-11">
-                    Contact Us
-                  </h1>
+                  <h2 className="font-manrope text-white text-4xl font-bold leading-10 absolute top-11 left-11">
+                    {t("contactPageTitle")}
+                  </h2>
                   <div className="absolute bottom-0 w-full lg:p-11 p-5">
                     <div className="bg-white/20 rounded-lg p-6 block">
                       {/* Phone */}
@@ -201,8 +212,8 @@ export default function Contactus() {
 
             {/* ── Right: Contact Form ── */}
             <div className="bg-gray-50 p-5 lg:p-11 lg:rounded-r-2xl rounded-2xl">
-              <h2 className="text-indigo-600 font-manrope text-4xl font-semibold leading-10 mb-11">
-                Send Us a Message
+              <h2 className="font-manrope text-4xl font-bold text-indigo-600 leading-10 mb-11">
+                {t("sendMessage")}
               </h2>
 
               {status === "success" ? (
@@ -221,16 +232,16 @@ export default function Contactus() {
                     />
                   </svg>
                   <h3 className="text-2xl font-bold text-gray-800">
-                    Message Sent!
+                    {t("messageSent")}
                   </h3>
                   <p className="text-gray-500">
-                    Thank you for reaching out. We will get back to you shortly.
+                    {t("messageSentDesc")}
                   </p>
                   <button
                     onClick={() => setStatus("idle")}
                     className="mt-4 px-6 py-2 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-colors"
                   >
-                    Send Another
+                    {t("sendAnother")}
                   </button>
                 </div>
               ) : (
@@ -242,7 +253,7 @@ export default function Contactus() {
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none focus:border-indigo-400 pl-4 mb-10"
-                    placeholder="Your Name"
+                    placeholder={t("placeholderName")}
                     required
                   />
                   <input
@@ -252,7 +263,7 @@ export default function Contactus() {
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none focus:border-indigo-400 pl-4 mb-10"
-                    placeholder="Email Address"
+                    placeholder={t("placeholderEmail")}
                     required
                   />
                   <input
@@ -262,7 +273,7 @@ export default function Contactus() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none focus:border-indigo-400 pl-4 mb-10"
-                    placeholder="Phone Number"
+                    placeholder={t("placeholderPhone")}
                   />
                   <textarea
                     id="contact-message"
@@ -270,14 +281,13 @@ export default function Contactus() {
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full h-32 text-gray-600 placeholder-gray-400 bg-transparent text-lg shadow-sm font-normal leading-7 rounded-3xl border border-gray-200 focus:outline-none focus:border-indigo-400 p-4 mb-10"
-                    placeholder="Your Message"
+                    placeholder={t("placeholderMessage")}
                     required
                   />
 
                   {status === "error" && (
                     <p className="text-red-500 text-sm mb-4 text-center">
-                      Something went wrong. Please try again or call us
-                      directly.
+                      {t("contactErrorMsg")}
                     </p>
                   )}
 
@@ -308,10 +318,10 @@ export default function Contactus() {
                             d="M4 12a8 8 0 018-8v8H4z"
                           />
                         </svg>
-                        Sending...
+                        {t("sendingContactBtn")}
                       </>
                     ) : (
-                      "Send Message"
+                      t("sendMessageBtn")
                     )}
                   </button>
                 </form>

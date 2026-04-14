@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.sankalpashreewealth.in
+
+# Sitemaps
+Sitemap: https://www.sankalpashreewealth.in/sitemap.xml
