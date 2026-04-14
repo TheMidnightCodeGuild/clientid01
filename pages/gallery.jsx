@@ -2,10 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import Navbar from "./components/header";
 import Footer from "./components/footer";
-import { useLanguage } from "@/lib/LanguageContext";
 
 const Gallery = () => {
-  const { t } = useLanguage();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -69,7 +67,7 @@ const Gallery = () => {
       <main className="font-dm">
         <Navbar />
         <div className="min-h-screen flex items-center justify-center">
-          <p>{t("loadingImages")}</p>
+          <p>Loading images...</p>
         </div>
       </main>
     );
@@ -80,7 +78,7 @@ const Gallery = () => {
       <Head>
         <title>
           Gallery | Sankalpshree Invest – Events & Milestones by Seetaram
-          Sharma, Financial Advisor & LIC Agent, Ujjain
+          Sharma, Mutual Fund Distributor & LIC Agent, Ujjain
         </title>
         <meta
           name="description"
@@ -88,7 +86,7 @@ const Gallery = () => {
         />
         <meta
           name="keywords"
-          content="Sankalpshree Invest gallery, Seetaram Sharma events Ujjain, LIC agent Ujjain, financial advisor events Ujjain, mutual fund workshop Ujjain, wealth planning gallery"
+          content="Sankalpshree Invest gallery, Seetaram Sharma events Ujjain, LIC agent Ujjain, Mutual Fund Distributor events Ujjain, mutual fund workshop Ujjain, wealth planning gallery"
         />
       </Head>
       <Navbar />
@@ -101,16 +99,18 @@ const Gallery = () => {
         <div className="absolute inset-0 bg-gray-800/50"></div>
         <div className="lg:max-w-[1300px] mx-auto px-4 flex items-start justify-start flex-col w-full gap-3 relative z-10 text-center">
           <h1 className="font-lexend text-3xl lg:text-5xl text-left text-white font-bold">
-            {t("galleryTitle")}
+            Our Gallery
           </h1>
           <p className="text-white text-sm font-medium lg:text-base max-w-xl">
-            {t("gallerySubtitle")}
+            A glimpse into our journey — from client milestones and financial
+            workshops to team moments that reflect our commitment to trust and
+            long-term financial partnerships.
           </p>
           <a
             href="/contact-us"
             className="ml-0 mt-1 rounded-full bg-white text-black font-semibold text-sm lg:text-base px-2 py-1 lg:px-3 lg:py-1.5 flex items-center transition-colors duration-200"
           >
-            {t("contactUs")}
+            Contact Us
             <span className="ml-2 w-8 h-8 rounded-full bg-theme1 flex items-center justify-center">
               <svg
                 className="lg:w-5 lg:h-5 w-4 h-4 text-white"
@@ -135,7 +135,7 @@ const Gallery = () => {
         <div className="max-w-[1300px] mx-auto px-4 lg:px-6">
           {images.length === 0 ? (
             <div className="text-center py-12 text-gray-500">
-              {t("noImagesFound")}
+              No images found.
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

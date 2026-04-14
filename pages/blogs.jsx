@@ -4,10 +4,8 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Navbar from "./components/header";
 import Footer from "./components/footer";
-import { useLanguage } from "@/lib/LanguageContext";
 
 const Blogs = () => {
-  const { t } = useLanguage();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -64,7 +62,7 @@ const Blogs = () => {
       <main>
         <Navbar />
         <div className="min-h-screen flex items-center justify-center">
-          <p>{t("loadingBlogs")}</p>
+          <p>Loading blogs...</p>
         </div>
       </main>
     );
@@ -95,16 +93,16 @@ const Blogs = () => {
         <div className="absolute inset-0 bg-gray-800/50"></div>
         <div className="lg:max-w-[1300px] mx-auto px-4 flex items-center justify-center flex-col w-full gap-3 relative z-10 text-center">
           <h1 className="font-lexend text-3xl lg:text-5xl text-left text-white font-bold">
-            {t("blogsTitle")}
+            Our Blogs
           </h1>
           <p className="text-white text-sm font-medium lg:text-base max-w-xl">
-            {t("blogsSubtitle")}
+            Stay informed with the latest financial insights, investment strategies, and insurance guides from our experts.
           </p>
           <a
             href="/contact-us"
             className="ml-0 mt-1 rounded-full bg-white text-black font-semibold text-sm lg:text-base px-2 py-1 lg:px-3 lg:py-1.5 flex items-center transition-colors duration-200"
           >
-            {t("contactUs")}
+            Contact Us
             <span className="ml-2 w-8 h-8 rounded-full bg-theme1 flex items-center justify-center">
               <svg
                 className="lg:w-5 lg:h-5 w-4 h-4 text-white"
@@ -134,7 +132,7 @@ const Blogs = () => {
 
           {blogs.length === 0 ? (
             <div className="text-center text-gray-500 py-12">
-              {t("noBlogsFound")}
+              No blogs found.
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -153,7 +151,7 @@ const Blogs = () => {
                     />
                   ) : (
                     <div className="h-48 bg-gray-200 flex items-center justify-center text-gray-400">
-                      {t("noImage")}
+                      No image
                     </div>
                   )}
 

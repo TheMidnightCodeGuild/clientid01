@@ -3,11 +3,8 @@ import Head from "next/head";
 import Navbar from "./components/header";
 import Image from "next/image";
 import Footer from "./components/footer";
-import { useLanguage } from "@/lib/LanguageContext";
 
 export default function Contactus() {
-  const { t } = useLanguage();
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,33 +22,27 @@ export default function Contactus() {
     setStatus("loading");
 
     try {
-      const res = await fetch(
-        "https://formsubmit.co/ajax/sankalpshreeinvest@gmail.com",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            _subject: "New Contact Form Submission – Sankalpshree Invest",
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            message: formData.message,
-            _captcha: "false",
-          }),
-        },
-      );
+      const res = await fetch("/api/forms/saveEntry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }),
+      });
 
       const data = await res.json();
-      if (data.success === "true" || data.success === true) {
+      if (res.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
+        console.error("Save entry error:", data.error);
         setStatus("error");
       }
-    } catch {
+    } catch (err) {
+      console.error("Contact form error:", err);
       setStatus("error");
     }
   };
@@ -61,15 +52,15 @@ export default function Contactus() {
       <Head>
         <title>
           Contact Us | Sankalpshree Invest – Reach Seetaram Sharma, LIC Agent
-          &amp; Financial Advisor, Ujjain
+          &amp; Mutual Fund Distributor, Ujjain
         </title>
         <meta
           name="description"
-          content="Contact Mr. Seetaram Sharma at Sankalpshree Invest, Ujjain — LIC agent since 2008, Member Zonal Manager's Club for Agents, and expert financial advisor. Reach us for mutual funds, LIC life insurance, Mediclaim, retirement planning, child future planning, PMS, and . Call +91 94250-93166."
+          content="Contact Mr. Seetaram Sharma at Sankalpshree Invest, Ujjain — LIC agent since 2008, Member Zonal Manager's Club for Agents, and expert Mutual Fund Distributor. Reach us for mutual funds, LIC life insurance, Mediclaim, retirement planning, child future planning, and . Call +91 94250-93166."
         />
         <meta
           name="keywords"
-          content="contact LIC agent Ujjain, Seetaram Sharma contact, Sankalpshree Invest contact, financial advisor Ujjain contact, mutual funds consultation Ujjain, LIC insurance Ujjain, 94250-93166, sankalpshreeinvest@gmail.com"
+          content="contact LIC agent Ujjain, Seetaram Sharma contact, Sankalpshree Invest contact, Mutual Fund Distributor Ujjain contact, mutual funds consultation Ujjain, LIC insurance Ujjain, 94250-93166, sankalpshreeinvest@gmail.com"
         />
       </Head>
       <Navbar />
@@ -82,16 +73,16 @@ export default function Contactus() {
         <div className="absolute inset-0 bg-gray-800/50"></div>
         <div className="lg:max-w-[1300px] mx-auto px-4 flex items-center justify-center flex-col w-full gap-3 relative z-10 text-center">
           <h1 className="font-lexend text-3xl lg:text-5xl text-left text-white font-bold">
-            {t("contactPageTitle")}
+            Contact Us
           </h1>
           <p className="text-white text-sm font-medium lg:text-base max-w-xl">
-            {t("contactPageSubtitle")}
+            Reach out to us for personalised financial guidance — we're here to help.
           </p>
           <a
             href="tel:+919425093166"
             className="ml-0 mt-1 rounded-full bg-white text-black font-semibold text-sm lg:text-base px-2 py-1 lg:px-3 lg:py-1.5 flex items-center transition-colors duration-200"
           >
-            {t("callUs")}
+            Call Us
             <span className="ml-2 w-8 h-8 rounded-full bg-theme1 flex items-center justify-center">
               <svg
                 className="lg:w-5 lg:h-5 w-4 h-4 text-white"
@@ -126,7 +117,7 @@ export default function Contactus() {
                     height={300}
                   />
                   <h1 className="font-manrope text-white text-4xl font-bold leading-10 absolute top-11 left-11">
-                    {t("contactPageTitle")}
+                    Contact Us
                   </h1>
                   <div className="absolute bottom-0 w-full lg:p-11 p-5">
                     <div className="bg-white/20 rounded-lg p-6 block">
@@ -199,7 +190,7 @@ export default function Contactus() {
                           />
                         </svg>
                         <h5 className="text-white text-base font-semibold leading-6 ml-5">
-                          {t("address")}
+                          C-113, 1st Floor, Dindayal Complex, Sanwer Road, Ujjain (M.P.) - 456010
                         </h5>
                       </div>
                     </div>
@@ -211,7 +202,7 @@ export default function Contactus() {
             {/* ── Right: Contact Form ── */}
             <div className="bg-gray-50 p-5 lg:p-11 lg:rounded-r-2xl rounded-2xl">
               <h2 className="text-indigo-600 font-manrope text-4xl font-semibold leading-10 mb-11">
-                {t("sendMessage")}
+                Send Us a Message
               </h2>
 
               {status === "success" ? (
@@ -251,7 +242,7 @@ export default function Contactus() {
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none focus:border-indigo-400 pl-4 mb-10"
-                    placeholder={t("namePlaceholder")}
+                    placeholder="Your Name"
                     required
                   />
                   <input
@@ -261,7 +252,7 @@ export default function Contactus() {
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none focus:border-indigo-400 pl-4 mb-10"
-                    placeholder={t("emailPlaceholder")}
+                    placeholder="Email Address"
                     required
                   />
                   <input
@@ -271,7 +262,7 @@ export default function Contactus() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none focus:border-indigo-400 pl-4 mb-10"
-                    placeholder={t("phonePlaceholder")}
+                    placeholder="Phone Number"
                   />
                   <textarea
                     id="contact-message"
@@ -279,7 +270,7 @@ export default function Contactus() {
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full h-32 text-gray-600 placeholder-gray-400 bg-transparent text-lg shadow-sm font-normal leading-7 rounded-3xl border border-gray-200 focus:outline-none focus:border-indigo-400 p-4 mb-10"
-                    placeholder={t("messagePlaceholder")}
+                    placeholder="Your Message"
                     required
                   />
 
@@ -320,7 +311,7 @@ export default function Contactus() {
                         Sending...
                       </>
                     ) : (
-                      t("send")
+                      "Send Message"
                     )}
                   </button>
                 </form>

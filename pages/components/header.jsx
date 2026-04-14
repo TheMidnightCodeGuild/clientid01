@@ -1,101 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useLanguage } from "@/lib/LanguageContext";
 
-// ─── Language Picker Dropdown ──────────────────────────────────────────────────
-function LanguagePicker() {
-  const { lang, setLang, t } = useLanguage();
-  const [open, setOpen] = useState(false);
-  const ref = useRef(null);
-
-  // Close on outside click
-  useEffect(() => {
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
-
-  const options = [
-    { code: "en", label: t("english"), flag: "🇬🇧" },
-    { code: "hi", label: t("hindi"), flag: "🇮🇳" },
-  ];
-
-  const current = options.find((o) => o.code === lang);
-
-  return (
-    <div ref={ref} className="relative">
-      {/* Trigger */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 text-sm font-medium transition-all duration-200 select-none"
-        aria-label="Language selector"
-        aria-expanded={open}
-      >
-        {/* Globe icon */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-4 h-4 text-blue-600 shrink-0"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-          <path d="M2 12h20" />
-        </svg>
-        <span>{current?.flag}</span>
-        <span className="hidden sm:inline">{current?.label}</span>
-        <svg
-          className={`w-3 h-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-          viewBox="0 0 16 16"
-          fill="none"
-        >
-          <path d="M2 5L8 11L14 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        </svg>
-      </button>
-
-      {/* Dropdown */}
-      <div
-        className={`absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 z-[200] ${
-          open ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
-        }`}
-      >
-        <div className="px-3 py-2 text-[10px] font-semibold uppercase tracking-widest text-gray-400 border-b border-gray-100">
-          {t("language")}
-        </div>
-        {options.map((opt) => (
-          <button
-            key={opt.code}
-            onClick={() => { setLang(opt.code); setOpen(false); }}
-            className={`flex items-center gap-2 w-full px-3 py-2.5 text-sm font-medium transition-colors duration-150 ${
-              lang === opt.code ? "bg-blue-50 text-blue-700" : "text-gray-700 hover:bg-gray-50"
-            }`}
-          >
-            <span className="text-base">{opt.flag}</span>
-            {opt.label}
-            {lang === opt.code && (
-              <svg className="ml-auto w-4 h-4 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── Reusable dot bullet ───────────────────────────────────────────────────────
 const Dot = ({ size = "sm" }) => (
   <span
     className={`rounded-full bg-theme1 shrink-0 ${
@@ -104,9 +10,7 @@ const Dot = ({ size = "sm" }) => (
   />
 );
 
-// ─── Main Navbar ───────────────────────────────────────────────────────────────
 const Navbar = () => {
-  const { t } = useLanguage();
   const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -116,32 +20,36 @@ const Navbar = () => {
     setMobileServicesOpen(false);
   };
 
-  // ── shared sub-item data ───────────────────────────────────────────────────
   const mutualFundItems = [
-    { href: "/services#retirement-planning", label: t("retirementPlanning") },
+    { href: "/services#retirement-planning", label: "Retirement Planning" },
     { href: "/services#sip",                 label: "SIP" },
     { href: "/services#swp",                 label: "SWP" },
     { href: "/services#stp",                 label: "STP" },
-    { href: "/services#client-portfolio-review", label: "CLIENT PORTFOLIO REVIEW" },
+    { href: "/services#client-portfolio-review", label: "Client Portfolio Review" },
+    { href: "/services#kids-marriage",       label: "Kids Marriage" },
+    { href: "/services#kids-education",      label: "Kids Education" },
+    { href: "/services#tax-saving",          label: "Tax Saving" },
+    { href: "/services#dream-car",           label: "Dream Car" },
+    { href: "/services#dream-house",         label: "Dream House" },
+    { href: "/services#dream-vacation",      label: "Dream Vacation" },
   ];
 
-  const insuranceItems = [
-    { href: "/services#health-insurance",            label: t("healthInsurance") },
-    { href: "/services#personal-accident-insurance", label: t("personalAccidentInsurance") },
-    { href: "/services#term-insurance",              label: "TERM Insurance" },
-    { href: "/services#traditional-insurance",       label: "TRADITIONAL Insurance" },
+  const lifeInsuranceItems = [
+    { href: "/services#term-insurance",         label: "TERM Insurance" },
+    { href: "/services#traditional-insurance",  label: "TRADITIONAL Insurance" },
+  ];
+
+  const generalInsuranceItems = [
+    { href: "/services#personal-accident-insurance", label: "Personal Accident Insurance" },
     { href: "/services#mediclaim",                   label: "MEDICLAIM" },
   ];
 
   return (
     <>
-      {/* ═══════════════════════════════════════════════════
-          DESKTOP NAVBAR  —  md and above
-      ═══════════════════════════════════════════════════ */}
+      {/* ═══════════════ DESKTOP NAVBAR ═══════════════ */}
       <nav className="hidden md:flex bg-white shadow-lg font-dm fixed top-0 w-full z-50">
         <div className="lg:max-w-[1300px] w-full mx-auto px-4">
           <div className="flex justify-between items-center">
-
             {/* Logo */}
             <Link href="/" className="flex items-center gap-4">
               <Image
@@ -159,12 +67,10 @@ const Navbar = () => {
 
             {/* Nav Links */}
             <div className="flex items-center gap-6 text-black font-dm text-base font-medium">
-
-              {/* Simple links */}
               {[
-                { href: "/",         label: t("home") },
-                { href: "/about-us", label: t("aboutUs") },
-                { href: "/gallery",  label: t("gallery") },
+                { href: "/",         label: "Home" },
+                { href: "/about-us", label: "About Us" },
+                { href: "/gallery",  label: "Gallery" },
               ].map(({ href, label }) => (
                 <Link key={href} href={href} className="relative py-1 transition-colors group">
                   {label}
@@ -180,7 +86,7 @@ const Navbar = () => {
                   onMouseEnter={() => setDesktopServicesOpen(true)}
                   onMouseLeave={() => setDesktopServicesOpen(false)}
                 >
-                  {t("servicesProducts")}
+                  Services &amp; Products
                   <svg
                     className={`w-3 h-3 transition-transform ${desktopServicesOpen ? "rotate-180" : ""}`}
                     viewBox="0 0 16 16"
@@ -190,27 +96,20 @@ const Navbar = () => {
                   </svg>
                 </button>
 
-                {/* Mega-dropdown panel */}
                 <div
                   className={`absolute top-full left-1/2 -translate-x-1/2 mt-3 transition-all duration-200 w-[460px] bg-white shadow-xl rounded-2xl p-6 ${
-                    desktopServicesOpen
-                      ? "opacity-100 visible translate-y-0"
-                      : "opacity-0 invisible -translate-y-2"
+                    desktopServicesOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
                   }`}
                   onMouseEnter={() => setDesktopServicesOpen(true)}
                   onMouseLeave={() => setDesktopServicesOpen(false)}
                 >
                   <div className="grid grid-cols-2 gap-6">
-
-                    {/* ── Wealth column ── */}
+                    {/* Wealth column */}
                     <div>
-                      <p className="text-lg font-semibold text-black mb-2">{t("Wealth")}</p>
+                      <p className="text-lg font-semibold text-black mb-2">Wealth</p>
                       <div className="space-y-1">
-                        <Link
-                          href="/services#mutual-funds"
-                          className="block text-gray-700 hover:text-theme1 text-base font-medium"
-                        >
-                          {t("mutualFunds")}
+                        <Link href="/services#mutual-funds" className="block text-gray-700 hover:text-theme1 text-base font-medium">
+                          Mutual Funds
                         </Link>
                         <ul className="pl-3 space-y-0.5 border-l-2 border-blue-100">
                           {mutualFundItems.map(({ href, label }) => (
@@ -225,161 +124,103 @@ const Navbar = () => {
                       </div>
                     </div>
 
-                    {/* ── Insurance column ── */}
+                    {/* Insurance column */}
                     <div>
-                      <p className="text-lg font-semibold text-black mb-2">{t("insurance")}</p>
+                      <p className="text-lg font-semibold text-black mb-2">Insurance</p>
                       <div className="space-y-1">
-                        <Link
-                          href="/services#life-insurance"
-                          className="block text-gray-700 hover:text-theme1 text-base"
-                        >
-                          {t("lifeInsurance")}
-                        </Link>
-                        <Link
-                          href="/services#general-insurance"
-                          className="block text-gray-700 hover:text-theme1 text-base font-medium pt-1"
-                        >
-                          {t("generalInsurance")}
+                        {/* Life Insurance + sub-bullets */}
+                        <Link href="/services#life-insurance" className="block text-gray-700 hover:text-theme1 text-base">
+                          Life Insurance
                         </Link>
                         <ul className="pl-3 space-y-0.5 border-l-2 border-blue-100">
-                          {insuranceItems.map(({ href, label }) => (
+                          {lifeInsuranceItems.map(({ href, label }) => (
                             <li key={href} className="flex items-center gap-1">
                               <Dot size="sm" />
-                              <Link href={href} className="text-gray-500 hover:text-theme1 text-sm">
-                                {label}
-                              </Link>
+                              <Link href={href} className="text-gray-500 hover:text-theme1 text-sm">{label}</Link>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {/* General Insurance + sub-bullets */}
+                        <Link href="/services#general-insurance" className="block text-gray-700 hover:text-theme1 text-base font-medium pt-1">
+                          General Insurance
+                        </Link>
+                        <ul className="pl-3 space-y-0.5 border-l-2 border-blue-100">
+                          {generalInsuranceItems.map(({ href, label }) => (
+                            <li key={href} className="flex items-center gap-1">
+                              <Dot size="sm" />
+                              <Link href={href} className="text-gray-500 hover:text-theme1 text-sm">{label}</Link>
                             </li>
                           ))}
                         </ul>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
 
               <Link href="/blogs" className="relative py-1 transition-colors group">
-                {t("blogs")}
+                Blogs
                 <span className="absolute bottom-0 left-0 w-full h-[3px] bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
               </Link>
-
-              <LanguagePicker />
 
               {/* Contact Button */}
               <Link
                 href="/contact-us"
                 className="ml-1 rounded-full bg-theme1 text-white font-medium text-base px-3 py-1.5 flex items-center gap-2 shadow-lg transition"
               >
-                {t("contactUs")}
+                Contact Us
                 <span className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M20 4l-2 2" />
-                    <path d="M22 10.5l-2.5 -.5" />
-                    <path d="M13.5 2l.5 2.5" />
                     <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2c-8.072 -.49 -14.51 -6.928 -15 -15a2 2 0 0 1 2 -2" />
                   </svg>
                 </span>
               </Link>
-
             </div>
           </div>
         </div>
       </nav>
 
-      {/* ═══════════════════════════════════════════════════
-          MOBILE TOPBAR  —  below md
-      ═══════════════════════════════════════════════════ */}
+      {/* ═══════════════ MOBILE TOPBAR ═══════════════ */}
       <nav className="flex md:hidden bg-white shadow-lg font-dm fixed top-0 w-full z-50">
         <div className="w-full px-4">
           <div className="flex justify-between items-center">
-
-            {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
-              <Image
-                className="w-auto h-16"
-                src="/images/logo.jpeg"
-                alt="Sankalpashree Wealth logo"
-                width={60}
-                height={60}
-                priority
-              />
+              <Image className="w-auto h-16" src="/images/logo.jpeg" alt="Sankalpashree Wealth logo" width={60} height={60} priority />
               <span className="text-theme1 text-sm font-lexend font-bold leading-tight tracking-[0.05rem]">
                 Sankalpashree <br /> Wealth
               </span>
             </Link>
-
-            <div className="flex items-center gap-2">
-              <LanguagePicker />
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 rounded-lg hover:bg-gray-100"
-                aria-label="Open menu"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {mobileMenuOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
-              </button>
-            </div>
-
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 rounded-lg hover:bg-gray-100" aria-label="Open menu">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* ═══════════════════════════════════════════════════
-          MOBILE DRAWER  —  slide-in panel
-      ═══════════════════════════════════════════════════ */}
-      <div
-        className={`fixed md:hidden inset-0 z-50 ${mobileMenuOpen ? "" : "pointer-events-none"}`}
-      >
-        {/* Backdrop */}
+      {/* ═══════════════ MOBILE DRAWER ═══════════════ */}
+      <div className={`fixed md:hidden inset-0 z-50 ${mobileMenuOpen ? "" : "pointer-events-none"}`}>
         <div
-          className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
-            mobileMenuOpen ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${mobileMenuOpen ? "opacity-100" : "opacity-0"}`}
           onClick={closeMobileMenu}
         />
-
-        {/* Drawer Panel */}
-        <div
-          className={`absolute top-0 right-0 h-screen w-[85vw] max-w-sm bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
-            mobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
+        <div className={`absolute top-0 right-0 h-screen w-[85vw] max-w-sm bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
           {/* Drawer Header */}
           <div className="flex justify-between items-center p-4 border-b border-gray-200">
             <Link href="/" className="flex items-center gap-3" onClick={closeMobileMenu}>
-              <Image
-                className="w-12 h-auto"
-                src="/images/logo.jpeg"
-                alt="Sankalpashree Wealth logo"
-                width={60}
-                height={60}
-                priority
-              />
+              <Image className="w-12 h-auto" src="/images/logo.jpeg" alt="Sankalpashree Wealth logo" width={60} height={60} priority />
               <span className="text-theme1 text-sm font-lexend font-bold leading-tight tracking-[0.05rem]">
                 Sankalpashree <br /> Wealth
               </span>
             </Link>
-            <button
-              onClick={closeMobileMenu}
-              className="p-2 rounded-lg hover:bg-gray-100"
-              aria-label="Close menu"
-            >
+            <button onClick={closeMobileMenu} className="p-2 rounded-lg hover:bg-gray-100" aria-label="Close menu">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -389,19 +230,12 @@ const Navbar = () => {
           {/* Drawer Links */}
           <div className="p-4 overflow-y-auto h-[calc(100vh-80px)]">
             <div className="space-y-2">
-
-              {/* Simple links */}
               {[
-                { href: "/",         label: t("home") },
-                { href: "/about-us", label: t("aboutUs") },
-                { href: "/gallery",  label: t("gallery") },
+                { href: "/",         label: "Home" },
+                { href: "/about-us", label: "About Us" },
+                { href: "/gallery",  label: "Gallery" },
               ].map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  onClick={closeMobileMenu}
-                  className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors"
-                >
+                <Link key={href} href={href} onClick={closeMobileMenu} className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors">
                   {label}
                 </Link>
               ))}
@@ -412,103 +246,64 @@ const Navbar = () => {
                   onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                   className="flex items-center justify-between w-full px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg"
                 >
-                  {t("servicesProducts")}
-                  <svg
-                    className={`w-5 h-5 transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""}`}
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
+                  Services &amp; Products
+                  <svg className={`w-5 h-5 transition-transform duration-200 ${mobileServicesOpen ? "rotate-180" : ""}`} viewBox="0 0 16 16" fill="none">
+                    <path d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                   </svg>
                 </button>
 
                 <div className={`mt-2 space-y-2 pl-4 ${mobileServicesOpen ? "block" : "hidden"}`}>
-
-                  {/* ── Mutual Funds ── */}
-                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                    {t("Wealth")}
-                  </p>
-                  <Link
-                    href="/services#mutual-funds"
-                    onClick={closeMobileMenu}
-                    className="block py-1.5 px-2 text-gray-700 font-medium hover:text-blue-600 text-sm"
-                  >
-                    {t("mutualFunds")}
+                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">Wealth</p>
+                  <Link href="/services#mutual-funds" onClick={closeMobileMenu} className="block py-1.5 px-2 text-gray-700 font-medium hover:text-blue-600 text-sm">
+                    Mutual Funds
                   </Link>
                   <ul className="pl-3 mb-1 space-y-1 border-l-2 border-blue-100">
                     {mutualFundItems.map(({ href, label }) => (
                       <li key={href} className="flex items-center gap-1.5">
                         <Dot size="lg" />
-                        <Link
-                          href={href}
-                          onClick={closeMobileMenu}
-                          className="text-sm text-gray-500 hover:text-blue-600"
-                        >
+                        <Link href={href} onClick={closeMobileMenu} className="text-sm text-gray-500 hover:text-blue-600">
                           {label}
                         </Link>
                       </li>
                     ))}
                   </ul>
 
-                  {/* ── Insurance ── */}
-                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                    {t("insurance")}
-                  </p>
-                  <Link
-                    href="/services#life-insurance"
-                    onClick={closeMobileMenu}
-                    className="block py-1.5 px-2 text-gray-700 hover:text-blue-600 text-sm"
-                  >
-                    {t("lifeInsurance")}
+                  <p className="px-2 pt-1 text-xs font-semibold uppercase tracking-widest text-gray-400">Insurance</p>
+                  <Link href="/services#life-insurance" onClick={closeMobileMenu} className="block py-1.5 px-2 text-gray-700 hover:text-blue-600 text-sm">
+                    Life Insurance
                   </Link>
-                  <Link
-                    href="/services#general-insurance"
-                    onClick={closeMobileMenu}
-                    className="block py-1.5 px-2 text-gray-700 font-medium hover:text-blue-600 text-sm"
-                  >
-                    {t("generalInsurance")}
-                  </Link>
-                  <ul className="pl-3 space-y-1 border-l-2 border-blue-100">
-                    {insuranceItems.map(({ href, label }) => (
+                  <ul className="pl-3 mb-1 space-y-1 border-l-2 border-blue-100">
+                    {lifeInsuranceItems.map(({ href, label }) => (
                       <li key={href} className="flex items-center gap-1.5">
                         <Dot size="lg" />
-                        <Link
-                          href={href}
-                          onClick={closeMobileMenu}
-                          className="text-sm text-gray-500 hover:text-blue-600"
-                        >
-                          {label}
-                        </Link>
+                        <Link href={href} onClick={closeMobileMenu} className="text-sm text-gray-500 hover:text-blue-600">{label}</Link>
                       </li>
                     ))}
                   </ul>
 
+                  <Link href="/services#general-insurance" onClick={closeMobileMenu} className="block py-1.5 px-2 text-gray-700 font-medium hover:text-blue-600 text-sm">
+                    General Insurance
+                  </Link>
+                  <ul className="pl-3 space-y-1 border-l-2 border-blue-100">
+                    {generalInsuranceItems.map(({ href, label }) => (
+                      <li key={href} className="flex items-center gap-1.5">
+                        <Dot size="lg" />
+                        <Link href={href} onClick={closeMobileMenu} className="text-sm text-gray-500 hover:text-blue-600">{label}</Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
 
-              <Link
-                href="/blogs"
-                onClick={closeMobileMenu}
-                className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors"
-              >
-                {t("blogs")}
+              <Link href="/blogs" onClick={closeMobileMenu} className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors">
+                Blogs
               </Link>
 
               <div className="pt-4">
-                <Link
-                  href="/contact-us"
-                  onClick={closeMobileMenu}
-                  className="block w-full text-center font-medium text-base bg-theme1 hover:opacity-95 text-white px-6 py-3 rounded-lg"
-                >
-                  {t("contactNow")}
+                <Link href="/contact-us" onClick={closeMobileMenu} className="block w-full text-center font-medium text-base bg-theme1 hover:opacity-95 text-white px-6 py-3 rounded-lg">
+                  Contact Now
                 </Link>
               </div>
-
             </div>
           </div>
         </div>
