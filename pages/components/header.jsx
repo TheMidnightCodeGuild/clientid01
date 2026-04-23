@@ -74,6 +74,7 @@ const Navbar = () => {
                 { href: "/",         label: t("home") },
                 { href: "/about-us", label: t("aboutUs") },
                 { href: "/gallery",  label: t("gallery") },
+                { href: "/Insights", label: "Insights" },
               ].map(({ href, label }) => (
                 <Link key={href} href={href} className="relative py-1 transition-colors group">
                   {label}
@@ -240,6 +241,7 @@ const Navbar = () => {
                 { href: "/",         label: t("home") },
                 { href: "/about-us", label: t("aboutUs") },
                 { href: "/gallery",  label: t("gallery") },
+                { href: "/Insights", label: "Insights" },
               ].map(({ href, label }) => (
                 <Link key={href} href={href} onClick={closeMobileMenu} className="block px-4 py-3 text-base font-medium hover:bg-blue-50 rounded-lg transition-colors">
                   {label}
