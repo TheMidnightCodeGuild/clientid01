@@ -22,7 +22,7 @@ export default function BestInvestmentConsultantBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content="https://www.example.com/best-investment-consultant-ujjain-indore-dewas"
+          content="https://www.sankalpashreewealth.in/seoBlogs/BestInvestmentConsultant"
         />
       </Head>
 

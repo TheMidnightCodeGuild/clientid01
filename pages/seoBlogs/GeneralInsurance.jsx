@@ -22,7 +22,7 @@ export default function GeneralInsuranceBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content="https://www.example.com/life-general-insurance-wealth-management-guide"
+          content="https://www.sankalpashreewealth.in/seoBlogs/GeneralInsurance"
         />
       </Head>
 

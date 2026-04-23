@@ -22,7 +22,7 @@ export default function STPBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content="https://www.example.com/stp-mutual-funds-investment-strategy-guide"
+          content="https://www.sankalpashreewealth.in/seoBlogs/STP"
         />
       </Head>
 

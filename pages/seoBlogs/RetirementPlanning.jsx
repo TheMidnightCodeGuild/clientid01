@@ -22,7 +22,7 @@ export default function RetirementPlanningBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content="https://www.example.com/retirement-planning-investment-guide-professionals"
+          content="https://www.sankalpashreewealth.in/seoBlogs/RetirementPlanning"
         />
       </Head>
 

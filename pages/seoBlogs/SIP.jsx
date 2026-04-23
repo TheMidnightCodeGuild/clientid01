@@ -22,7 +22,7 @@ export default function SIPBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content="https://www.example.com/sip-investment-guide-mutual-funds-professionals"
+          content="https://www.sankalpashreewealth.in/seoBlogs/SIP"
         />
       </Head>
 

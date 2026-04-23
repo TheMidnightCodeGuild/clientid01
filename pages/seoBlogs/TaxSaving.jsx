@@ -22,7 +22,7 @@ export default function TaxSavingBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content="https://www.example.com/tax-saving-investment-guide-professionals-india"
+          content="https://www.sankalpashreewealth.in/seoBlogs/TaxSaving"
         />
       </Head>
 

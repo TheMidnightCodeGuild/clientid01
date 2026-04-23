@@ -22,7 +22,7 @@ export default function SWPBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content="https://www.example.com/swp-mutual-funds-income-investment-guide"
+          content="https://www.sankalpashreewealth.in/seoBlogs/SWP"
         />
       </Head>
 

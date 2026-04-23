@@ -22,7 +22,7 @@ export default function BestMutualFundsConsultantBlog() {
         <meta property="og:type" content="article" />
         <meta
           property="og:url"
-          content="https://www.example.com/best-mutual-fund-consultant-ujjain-indore-dewas"
+          content="https://www.sankalpashreewealth.in/seoBlogs/BestMutualFundsConsultant"
         />
       </Head>
 
